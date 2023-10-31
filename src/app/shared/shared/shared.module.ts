@@ -18,6 +18,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatSortModule } from '@angular/material/sort';
 import { MatBadgeModule } from '@angular/material/badge';
 import { MatSelectModule } from '@angular/material/select';
+import { FlexLayoutModule } from '@angular/flex-layout';
 
 @NgModule({
   declarations: [],
@@ -41,6 +42,7 @@ import { MatSelectModule } from '@angular/material/select';
     MatDialogModule,
     MatBadgeModule,
     MatSelectModule,
+    FlexLayoutModule,
   ],
   exports: [
     MatButtonModule,
@@ -60,7 +62,8 @@ import { MatSelectModule } from '@angular/material/select';
     MatPaginatorModule,
     MatDialogModule,
     MatBadgeModule,
-    MatSelectModule
+    MatSelectModule,
+    FlexLayoutModule,
   ]
 })
 export class SharedModule { }

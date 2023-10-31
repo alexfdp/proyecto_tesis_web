@@ -6,11 +6,15 @@ import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { LoginComponent } from './layout/public/login/login.component';
+import { PrivateSystemComponent } from './layout/private/private-system/private-system.component';
+import { MenuComponent } from './modules/menu/menu.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    LoginComponent
+    LoginComponent,
+    PrivateSystemComponent,
+    MenuComponent
   ],
   imports: [
     BrowserModule,

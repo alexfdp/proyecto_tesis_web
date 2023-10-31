@@ -1,21 +1,60 @@
-<p>
-    <mat-toolbar>
-        <span>My Application</span>
-    </mat-toolbar>
-</p>
-<p>
-    <mat-toolbar>
-        <button mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon">
-            <mat-icon>menu</mat-icon>
-        </button>
-        <span>My App</span>
-        <span class="example-spacer"></span>
-        <button mat-icon-button class="example-icon favorite-icon" aria-label="Example icon-button with heart icon">
-            <mat-icon>favorite</mat-icon>
-        </button>
-        <button mat-icon-button class="example-icon" aria-label="Example icon-button with share icon">
-            <mat-icon>share</mat-icon>
-        </button>
-    </mat-toolbar>
-</p>
-<p>login works!</p>
+<div class="todo">
+    <!-- <p>
+        <mat-toolbar class="texto" color="primary">
+            <div class="container logo">
+                <img src="assets/images/log_sin_letras.png" alt="log" class="logo_ico">
+                <img src="assets/images/ICEBERG.svg" alt="" class="logo_img">
+            </div>
+        </mat-toolbar>
+    </p> -->
+    <div class="principal">
+        <main>
+            <div class="container contedor_in_out texto">
+                <div class="caja_trasera"  fxLayout="column" fxLayoutAlign=" none" >
+                    <div class="">
+                        <img src="assets/images/log_sin_letras.png" alt="log" class="logo_ico_2">
+                        <br>
+                        <img src="assets/images/ICEBERG.svg" alt="" class="logo_img">
+                    </div>
+                    <form class="formulario__login">
+
+                        <!-- <img src="assets/images/generic-logo.png" alt="logo_empresa" class="logo-empresa"> -->
+                        <br>
+                        <h2 class="titulo_servicio">Iniciar Sesión</h2>
+                        <div class="form-floating mb-3">
+                            <input type="text" formControlName="usuario"
+                                [class.is-invalid]="f.usuario.errors && f.usuario.touched" class="form-control"
+                                id="floatingInput" placeholder="name@example.com" id="exampleFormControlInput1">
+                            <label for="floatingInput" style="font-size: 14px;" class="mb-3"> <i
+                                    class="bi bi-envelope-fill"></i>
+                                &nbsp;Ingrese su usuario</label>
+                            <div id="validationServer03Feedback" class="invalid-feedback">
+                                Por favor ingrese el usuario.
+                            </div>
+                        </div>
+                        <div class="link_forgot">
+                            <a href="/password_reset">Olvidé mi contraseña</a>
+                        </div>
+                        <div class="form-floating position-relative">
+                            <input id="campo-password-valitaion" formControlName="password" type="password"
+                                [class.is-invalid]="f.password.errors && f.password.touched" class="form-control"
+                                placeholder="Password">
+                            <label for="floatingPassword" style="font-size: 14px;"><i class="bi bi-lock-fill"></i>
+                                &nbsp;Ingrese
+                                su contraseña</label>
+                            <div id="validationServer03Feedback" class="invalid-feedback">
+                                Por favor ingrese contraseña.
+                            </div>
+                            <div class="position-absolute top-50 end-0 translate-middle-y">
+                                <button onclick="functionVisibilidadPassword()" type="button"
+                                    class="configuracion-boton-icon"><i id="icono-eye"
+                                        class="bi bi-eye-slash-fill"></i></button>
+                            </div>
+                        </div>
+                        <button class="btn btn-success">Entrar</button>
+                    </form>
+                </div>
+            </div>
+        </main>
+    </div>
+</div>
