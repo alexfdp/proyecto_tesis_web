@@ -12,10 +12,12 @@
     max-width: 50px;
     filter: invert(100%) sepia(96%) saturate(18%) hue-rotate(297deg) brightness(105%) contrast(104%);
 }
+
 .logo_ico_2 {
     max-width: 100px;
     filter: invert(100%) sepia(96%) saturate(18%) hue-rotate(297deg) brightness(105%) contrast(104%);
 }
+
 .logo-empresa {
     // margin-top: 30px;
     width: 30%;
@@ -29,10 +31,6 @@
     background-position: center;
     background-attachment: fixed;
 }
-
-// body {
-//     background-color: rgb(10, 88, 117);
-// }
 
 main {
     width: 100%;
@@ -69,6 +67,7 @@ main {
     border: none;
     font-size: 14px;
     outline: none;
+    background: white;
 }
 
 .caja_trasera form button {
@@ -84,6 +83,11 @@ main {
     outline: none;
     // text-align: right;
     border-radius: 5px;
+}
+
+.caja_trasera form .invalid-feedback {
+    text-align: left;
+    color: #4b45ed;
 }
 
 .caja_trasera form .link_forgot {
@@ -102,6 +106,12 @@ main {
 
 .formulario__login h2 {
     margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.caja_trasera form button:hover {
+    background: #fff;
+    color: rgb(55, 104, 167);
 }
 
 .configuracion-boton-icon {

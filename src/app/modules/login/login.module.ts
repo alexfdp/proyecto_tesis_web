@@ -7,7 +7,6 @@ import { SharedModule } from 'src/app/shared/shared/shared.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ForgotPasswordComponent } from './pages/forgot-password/forgot-password.component';
 
-
 @NgModule({
   declarations: [
     LoginComponent,

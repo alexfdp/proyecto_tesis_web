@@ -1,1 +1,147 @@
-<p>menu works!</p>
+<mat-toolbar class="texto" color="primary">
+    <button mat-icon-button (click)="drawer.toggle()"><mat-icon>menu</mat-icon></button>
+    <div class="container logo">
+        <img src="assets/images/log_sin_letras.png" alt="log" class="logo_ico">
+        <img src="assets/images/ICEBERG.svg" alt="" class="logo_img">
+    </div>
+    <span class="espaciadortoolbar"></span>
+
+    <div class="imagen_perfil perfil">
+        <img src="assets/images/user_generic.png" alt="">
+        <div class="datos_user" fxLayout="column" fxLayoutAlign="space-between none">
+            <h4 class="name">Alex Fajardo</h4>
+            <p class="designation">Administrador</p>
+        </div>
+    </div>
+
+</mat-toolbar>
+
+<mat-drawer-container class="texto" [hasBackdrop]="false" fxLayout="row" fxLayoutAlign=" none">
+    <mat-drawer #drawer [mode]="'side'">
+
+        <div class="sidebar-links" fxLayout="column" fxLayoutAlign="space-evenly none">
+            <button [routerLink]="['/home']" [routerLinkActive]="'optionActive'" mat-button class="menu-button"
+                fxLayout="row" fxLayoutAlign="start center">
+                <!-- <mat-icon>home</mat-icon> -->
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                    class="bi bi-house-fill" viewBox="0 0 16 16">
+                    <path
+                        d="M8.707 1.5a1 1 0 0 0-1.414 0L.646 8.146a.5.5 0 0 0 .708.708L8 2.207l6.646 6.647a.5.5 0 0 0 .708-.708L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293L8.707 1.5Z" />
+                    <path d="m8 3.293 6 6V13.5a1.5 1.5 0 0 1-1.5 1.5h-9A1.5 1.5 0 0 1 2 13.5V9.293l6-6Z" />
+                </svg>
+                <span class="link hide">Home</span>
+            </button>
+        </div>
+        <mat-divider></mat-divider>
+
+        <div class="sidebar-links" fxLayout="column" fxLayoutAlign="space-evenly none">
+            <h5>Empresa</h5>
+            <button [routerLink]="['/empresa']" [routerLinkActive]="'optionActive'" mat-button class="menu-button"
+                fxLayout="row" fxLayoutAlign="start center">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                    class="bi bi-building" viewBox="0 0 16 16">
+                    <path
+                        d="M4 2.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1Zm3 0a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1Zm3.5-.5a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5h-1ZM4 5.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1ZM7.5 5a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5h-1Zm2.5.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1ZM4.5 8a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5h-1Zm2.5.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1Zm3.5-.5a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5h-1Z" />
+                    <path
+                        d="M2 1a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v14a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V1Zm11 0H3v14h3v-2.5a.5.5 0 0 1 .5-.5h3a.5.5 0 0 1 .5.5V15h3V1Z" />
+                </svg>
+                <span>Empresa</span>
+            </button>
+        </div>
+
+        <mat-divider></mat-divider>
+
+        <div class="sidebar-links" fxLayout="column" fxLayoutAlign="space-evenly none">
+            <h5>Empleados</h5>
+            <button [routerLink]="['/registro']" [routerLinkActive]="'optionActive'" mat-button class="menu-button"
+                fxLayout="row" fxLayoutAlign="start center">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                    class="bi bi-person-fill-add" viewBox="0 0 16 16">
+                    <path
+                        d="M12.5 16a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7Zm.5-5v1h1a.5.5 0 0 1 0 1h-1v1a.5.5 0 0 1-1 0v-1h-1a.5.5 0 0 1 0-1h1v-1a.5.5 0 0 1 1 0Zm-2-6a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
+                    <path
+                        d="M2 13c0 1 1 1 1 1h5.256A4.493 4.493 0 0 1 8 12.5a4.49 4.49 0 0 1 1.544-3.393C9.077 9.038 8.564 9 8 9c-5 0-6 3-6 4Z" />
+                </svg>
+                <span>Registro</span>
+            </button>
+            <button [routerLink]="['/trabajo']" [routerLinkActive]="'optionActive'" mat-button class="menu-button"
+                fxLayout="row" fxLayoutAlign="start center">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                    class="bi bi-person-workspace" viewBox="0 0 16 16">
+                    <path d="M4 16s-1 0-1-1 1-4 5-4 5 3 5 4-1 1-1 1H4Zm4-5.95a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5Z" />
+                    <path
+                        d="M2 1a2 2 0 0 0-2 2v9.5A1.5 1.5 0 0 0 1.5 14h.653a5.373 5.373 0 0 1 1.066-2H1V3a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1v9h-2.219c.554.654.89 1.373 1.066 2h.653a1.5 1.5 0 0 0 1.5-1.5V3a2 2 0 0 0-2-2H2Z" />
+                </svg>
+                <span>Trabajo</span>
+            </button>
+            <button [routerLink]="['/perfiles']" [routerLinkActive]="'optionActive'" mat-button class="menu-button"
+                fxLayout="row" fxLayoutAlign="start center">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                    class="bi bi-person-bounding-box" viewBox="0 0 16 16">
+                    <path
+                        d="M1.5 1a.5.5 0 0 0-.5.5v3a.5.5 0 0 1-1 0v-3A1.5 1.5 0 0 1 1.5 0h3a.5.5 0 0 1 0 1h-3zM11 .5a.5.5 0 0 1 .5-.5h3A1.5 1.5 0 0 1 16 1.5v3a.5.5 0 0 1-1 0v-3a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 1-.5-.5zM.5 11a.5.5 0 0 1 .5.5v3a.5.5 0 0 0 .5.5h3a.5.5 0 0 1 0 1h-3A1.5 1.5 0 0 1 0 14.5v-3a.5.5 0 0 1 .5-.5zm15 0a.5.5 0 0 1 .5.5v3a1.5 1.5 0 0 1-1.5 1.5h-3a.5.5 0 0 1 0-1h3a.5.5 0 0 0 .5-.5v-3a.5.5 0 0 1 .5-.5z" />
+                    <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3zm8-9a3 3 0 1 1-6 0 3 3 0 0 1 6 0z" />
+                </svg>
+                <span>Perfiles</span>
+            </button>
+            <button [routerLink]="['/turnos']" [routerLinkActive]="'optionActive'" mat-button class="menu-button"
+                fxLayout="row" fxLayoutAlign="start center">
+                <mat-icon>Turnos</mat-icon>
+                <span>Turnos Empleados</span>
+            </button>
+        </div>
+
+        <mat-divider></mat-divider>
+
+        <div class="sidebar-links" fxLayout="column" fxLayoutAlign="space-around none">
+            <h5>Rol de pago</h5>
+            <button [routerLink]="['/roles-pagos']" [routerLinkActive]="'optionActive'" mat-button class="menu-button"
+                fxLayout="row" fxLayoutAlign="start center">
+                <mat-icon>person</mat-icon>
+                <span class="text-button">Rol de pago</span>
+            </button>
+            <button [routerLink]="['/historico']" [routerLinkActive]="'optionActive'" mat-button class="menu-button"
+                fxLayout="row" fxLayoutAlign="start center">
+                <mat-icon>person</mat-icon>
+                <span>Histórico Empleados</span>
+            </button>
+        </div>
+
+        <mat-divider></mat-divider>
+
+        <div class="sidebar-links" fxLayout="column" fxLayoutAlign="space-around none">
+            <h5>Solicitudes</h5>
+            <button [routerLink]="['/home']" [routerLinkActive]="'optionActive'" mat-button class="menu-button"
+                fxLayout="row" fxLayoutAlign="start center">
+                <mat-icon>person</mat-icon>
+                <span>Solicitudes</span>
+            </button>
+            <button [routerLink]="['/users']" [routerLinkActive]="'optionActive'" mat-button class="menu-button"
+                fxLayout="row" fxLayoutAlign="start center">
+                <mat-icon>person</mat-icon>
+                <span class="text-button">Histórico Solicitudes</span>
+            </button>
+        </div>
+
+        <mat-divider></mat-divider>
+
+        <div class="sidebar-links" fxLayout="column" fxLayoutAlign="space-around none">
+            <h5>Reportes y análisis</h5>
+            <button [routerLink]="['/home']" [routerLinkActive]="'optionActive'" mat-button class="menu-button"
+                fxLayout="row" fxLayoutAlign="start center">
+                <mat-icon>person</mat-icon>
+                <span class="text-button">Informes</span>
+            </button>
+            <button [routerLink]="['/users']" [routerLinkActive]="'optionActive'" mat-button class="menu-button"
+                fxLayout="row" fxLayoutAlign="start center">
+                <mat-icon>person</mat-icon>
+                <span>Tendencias</span>
+            </button>
+        </div>
+    </mat-drawer>
+
+    <mat-drawer-content class="content">
+        <router-outlet></router-outlet>
+    </mat-drawer-content>
+
+</mat-drawer-container>
