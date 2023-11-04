@@ -11,7 +11,7 @@ import { LoginServiceService } from '../../services/login-service.service';
 export class LoginComponent {
   public myForm!: FormGroup;
 
-  constructor(private fb: FormBuilder, private routerprd: Router,private loginAuth: LoginServiceService) {
+  constructor(private fb: FormBuilder, private routerprd: Router, private loginAuth: LoginServiceService) {
   }
 
   ngOnInit(): void {
@@ -25,6 +25,11 @@ export class LoginComponent {
       password: ['', Validators.required]
     });
   }
+
+  public ForgotPass() {
+    this.routerprd.navigateByUrl("/password_reset")
+  }
+
   public get f(): any {
     return this, this.myForm.controls;
   }
