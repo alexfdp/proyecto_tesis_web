@@ -15,11 +15,12 @@ const routes: Routes = [
     path: '',
     children: [
       {
-        path: 'login', component: LoginComponent, loadChildren: () => import('./modules/login/login.module').then(m => m.LoginModule)
-      },
-      {
-        path: 'password_reset', component: ForgotPasswordComponent, loadChildren: () => import('./modules/login/login.module').then(m => m.LoginModule)
+        path: '', loadChildren: () => import('./modules/login/login.module').then(m => m.LoginModule)
       }
+      // ,
+      // {
+      //   path: 'password_reset', component: ForgotPasswordComponent, loadChildren: () => import('./modules/login/login.module').then(m => m.LoginModule)
+      // }
     ]
   },
   {
