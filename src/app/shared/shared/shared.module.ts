@@ -45,6 +45,7 @@ import { FlexLayoutModule } from '@angular/flex-layout';
     FlexLayoutModule,
   ],
   exports: [
+    CommonModule,
     MatButtonModule,
     MatButtonToggleModule,
     MatDatepickerModule,

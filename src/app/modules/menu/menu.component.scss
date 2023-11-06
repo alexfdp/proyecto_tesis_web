@@ -50,7 +50,7 @@ mat-divider {
 
 .content {
     min-height: calc(100vh - 64px);
-    // height: auto;
+    width: 100%;
 }
 
 mat-drawer {
@@ -85,13 +85,13 @@ mat-drawer .menu-button.optionActive {
 }
 
 mat-drawer .menu-button mat-icon {
-    width: 30px;
-    height: 30px;
-    font-size: 30px;
+    width: 25px;
+    height: 25px;
+    font-size: 25px;
 }
 
 mat-drawer .menu-button svg {
-    width: 28px;
-    height: 28px;
+    width: 25px;
+    height: 25px;
     margin-right: 8px;
 }

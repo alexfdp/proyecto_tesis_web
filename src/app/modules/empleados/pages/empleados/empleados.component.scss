@@ -1,0 +1,67 @@
+.tabla-container {
+    margin-top: 15px;
+}
+
+.example-container {
+    max-width: 100%;
+    max-height: 100%;
+    overflow: auto;
+}
+
+.clase_filtro_btn {
+    flex-wrap: wrap-reverse;
+}
+
+.input-search {
+    width: 50%;
+}
+
+.demo-table {
+    width: 100%;
+}
+
+.mat-column-id {
+    width: 32px;
+    border-right: 1px solid currentColor;
+    padding-right: 24px;
+    text-align: center;
+}
+
+.mat-mdc-form-field {
+    font-size: 14px;
+    width: 100%;
+}
+
+.iconBtn {
+    cursor: pointer;
+}
+
+.delete {
+    color: #E15639;
+}
+
+.edit {
+    color: #187880;
+}
+
+//dialog
+.contenedor-dialog {
+    // height: 400px;
+    margin: 30px;
+}
+
+//móviles
+@media only screen and (max-width:768px) {
+    .input-search {
+        width: 100%;
+    }
+}
+
+//tables
+@media only screen and (min-width:767px) and (max-width:991px) {}
+
+//laptops
+@media only screen and (min-width:992px) and (max-width:1023px) {}
+
+//desktop
+@media only screen and (min-width:1024px) {}

@@ -2,22 +2,24 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { EmpleadosRoutingModule } from './empleados-routing.module';
-import { RegistroComponent } from './pages/registro/registro.component';
 import { TrabajoComponent } from './pages/trabajo/trabajo.component';
 import { PerfilesComponent } from './pages/perfiles/perfiles.component';
 import { TurnosComponent } from './pages/turnos/turnos.component';
+import { SharedModule } from 'src/app/shared/shared/shared.module';
+import { EmpleadosComponent } from './pages/empleados/empleados.component';
 
 
 @NgModule({
   declarations: [
-    RegistroComponent,
     TrabajoComponent,
     PerfilesComponent,
-    TurnosComponent
+    TurnosComponent,
+    EmpleadosComponent
   ],
   imports: [
     CommonModule,
-    EmpleadosRoutingModule
+    EmpleadosRoutingModule,
+    SharedModule
   ]
 })
 export class EmpleadosModule { }
