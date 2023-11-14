@@ -9,7 +9,7 @@
                         <img src="assets/images/ICEBERG.svg" alt="" class="logo_img">
                     </div>
 
-                    <form class="formulario__login" [formGroup]="myForm">
+                    <form class="formulario__login" [formGroup]="myForm" (ngSubmit)="submitFormulario()">
                         <h2 class="titulo_servicio">Iniciar Sesión</h2>
                         <div class="form-floating mb-3">
                             <input type="text" formControlName="usuario" id="usuario_ice"
@@ -25,8 +25,8 @@
                             <a (click)="ForgotPass()">Olvidé mi contraseña</a>
                         </div>
                         <div class="form-floating position-relative">
-                            <input formControlName="password" type="password" id="contrasena"
-                                [class.is-invalid]="f.password.errors && f.password.touched" class="form-control"
+                            <input formControlName="contrasena" type="password" id="contrasena"
+                                [class.is-invalid]="f.contrasena.errors && f.contrasena.touched" class="form-control"
                                 placeholder="Password">
                             <label for="floatingPassword" style="font-size: 14px;"><i class="bi bi-lock-fill"></i>
                                 &nbsp;Ingrese

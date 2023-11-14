@@ -1,11 +1,10 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { ForgotPasswordComponent } from './modules/login/pages/forgot-password/forgot-password.component';
 import { HomeComponent } from './modules/home/page/home/home.component';
-import { LoginComponent } from './modules/login/pages/login/login.component';
 import { MenuComponent } from './modules/menu/menu.component';
 import { UsersComponent } from './modules/users/users/users.component';
 import { EmpresaComponent } from './modules/empresa/pages/empresa/empresa.component';
+import { authGuard } from './guards/auth.guard';
 
 const routes: Routes = [
   {
@@ -17,14 +16,10 @@ const routes: Routes = [
       {
         path: '', loadChildren: () => import('./modules/login/login.module').then(m => m.LoginModule)
       }
-      // ,
-      // {
-      //   path: 'password_reset', component: ForgotPasswordComponent, loadChildren: () => import('./modules/login/login.module').then(m => m.LoginModule)
-      // }
     ]
   },
   {
-    path: '', component: MenuComponent,
+    path: '', component: MenuComponent, canActivate: [authGuard],
     children: [
       {
         path: 'home', component: HomeComponent
