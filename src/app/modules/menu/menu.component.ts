@@ -1,5 +1,5 @@
-import { Component, Input } from '@angular/core';
-import { MatDrawer } from '@angular/material/sidenav';
+import { Component, HostBinding, Input } from '@angular/core';
+import { MatDrawer, MatDrawerMode } from '@angular/material/sidenav';
 import { ViewChild } from '@angular/core'
 import { UserData } from 'src/app/models/UserData';
 import { MenuValService } from './service/menu-val.service';
@@ -12,31 +12,44 @@ import { Router } from '@angular/router';
 })
 export class MenuComponent {
   valid = true;
-  userdata!: UserData
-  nombre = ""
-
+  nombre = "";
+  rol = "";
+  mode!: MatDrawerMode
   ngOnInit(): void {
     this.recogerdata()
   }
 
-  constructor(private menuval: MenuValService, private routerprd: Router) { }
+  constructor(private menuval: MenuValService, private routerprd: Router) {
+    this.mode = 'side'
+    window.addEventListener('resize', () => this.detectarTamañoVentana());
+    this.detectarTamañoVentana();
+  }
+
+  detectarTamañoVentana() {
+    const anchoVentana = window.innerWidth;
+    if (anchoVentana <= 768) {
+      this.mode = 'over';
+    } else {
+      this.mode = 'side';
+    }
+  }
 
   verMenu() {
     this.valid = !this.valid;
   };
 
-  recogerdata() {
+  private recogerdata() {
     this.menuval.getUserData().subscribe({
       next: (data) => {
-        this.userdata = data;
-        this.nombre = this.userdata.nombre
-        if (this.userdata.apellido) {
-          this.nombre += this.userdata.apellido
+        this.nombre = data.nombre
+        this.rol = data.rol
+        if (data.apellido) {
+          this.nombre += data.apellido
         }
-        if (this.userdata.apellido_2) {
-          this.nombre += this.userdata.apellido_2
+        if (data.apellido_2) {
+          this.nombre += data.apellido_2
         }
-        console.log(this.userdata);
+        // console.log(data);
       },
       error: (response: any) => {
         var msg = response["error"]["message"]

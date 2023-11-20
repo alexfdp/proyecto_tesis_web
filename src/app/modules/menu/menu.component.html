@@ -10,15 +10,21 @@
         <img src="assets/images/user_generic.png" alt="">
         <div class="datos_user" fxLayout="column" fxLayoutAlign="space-between none">
             <h4 class="name">{{nombre}}</h4>
-            <p class="designation">{{userdata.rol}}</p>
+            <p class="designation">{{rol}}</p>
         </div>
     </div>
 
 </mat-toolbar>
 
 <mat-drawer-container class="texto" [hasBackdrop]="false" fxLayout="row" fxLayoutAlign=" none">
-    <mat-drawer #drawer [mode]="'side'">
-
+    <mat-drawer #drawer [mode]="mode">
+        <div class="imagen_perfil_drawer imagen_perfil perfil">
+            <img src="assets/images/user_generic.png" alt="">
+            <div class="datos_user" fxLayout="column" fxLayoutAlign="space-between none">
+                <h4 class="name">{{nombre}}</h4>
+                <p class="designation">{{rol}}</p>
+            </div>
+        </div>
         <div class="sidebar-links" fxLayout="column" fxLayoutAlign="space-evenly none">
             <button [routerLink]="['/home']" [routerLinkActive]="'optionActive'" mat-button class="menu-button"
                 fxLayout="row" fxLayoutAlign="start center">
