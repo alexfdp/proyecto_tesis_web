@@ -70,6 +70,7 @@ export class EmpleadosComponent {
 @Component({
   selector: 'add-empleado-dialog',
   templateUrl: 'add-empleado-dialog.html',
+  styleUrls: ['./empleados.component.scss'],
   standalone: true,
   imports: [SharedModule],
 })
