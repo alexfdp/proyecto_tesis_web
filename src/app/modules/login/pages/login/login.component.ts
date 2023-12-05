@@ -62,7 +62,7 @@ export class LoginComponent {
   private createMyForm(): FormGroup {
     return this.fb.group({
       usuario: ['', [Validators.required]],
-      contrasena: ['', Validators.required]
+      contrasena: ['', [Validators.required]]
     });
   }
 

@@ -2,7 +2,6 @@ import { Component, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
-import { MatInputModule } from '@angular/material/input';
 import { MatTableDataSource } from '@angular/material/table';
 import { SharedModule } from 'src/app/shared/shared/shared.module';
 import { EmpleadosService } from '../../services/empleados.service';
@@ -89,12 +88,12 @@ export class AddEmpleadoDialog {
 
   private createMyForm(): FormGroup {
     return this.fb.group({
-      nombre: ['', [Validators.required, Validators.maxLength(45)]],
-      apellido: ['', [Validators.required, Validators.maxLength(45)]],
-      apellido_2: ['', Validators.required, Validators.maxLength(45)],
-      cedula: ['', [Validators.required, Validators.maxLength(10)]],
+      nombre: ['', [Validators.required, Validators.maxLength(45), Validators.pattern('[a-zA-ZñÑá-úÁ-Ú ]*')]],
+      apellido: ['', [Validators.required, Validators.maxLength(45), Validators.pattern('[a-zA-ZñÑá-úÁ-Ú ]*')]],
+      apellido_2: ['', [Validators.required, Validators.maxLength(45), Validators.pattern('[a-zA-ZñÑá-úÁ-Ú ]*')]],
+      cedula: ['', [Validators.required, Validators.minLength(10), Validators.maxLength(10), Validators.pattern('[0-9]*')]],
       direccion: ['', [Validators.required, Validators.maxLength(200)]],
-      telefono: [null, [Validators.required, Validators.minLength(10)]],
+      telefono: ['', [Validators.required, Validators.minLength(10), Validators.maxLength(10), Validators.pattern('[0-9]*')]],
       correo: ['', [Validators.required, Validators.maxLength(200), Validators.email]],
       sueldo: ['', [Validators.required]],
       usuario: ['', [Validators.required, Validators.maxLength(20)]]
@@ -104,47 +103,11 @@ export class AddEmpleadoDialog {
   submitFormulario() {
     if (this.myForm.invalid) {
       Object.values(this.myForm.controls).forEach(control => {
-        console.log(control.errors);
+        console.log("error: " + control);
         control.markAllAsTouched();
       });
       return;
     }
   }
-  cedula = ""
-  public validador!: Boolean;
-  validadorDeCedula(cedula: String) {
-    let cedulaCorrecta = false;
-    if (cedula.length == 10) {
-      let tercerDigito = parseInt(cedula.substring(2, 3));
-      if (tercerDigito < 6) {
-        // El ultimo digito se lo considera dígito verificador
-        let coefValCedula = [2, 1, 2, 1, 2, 1, 2, 1, 2];
-        let verificador = parseInt(cedula.substring(9, 10));
-        let suma: number = 0;
-        let digito: number = 0;
-        for (let i = 0; i < (cedula.length - 1); i++) {
-          digito = parseInt(cedula.substring(i, i + 1)) * coefValCedula[i];
-          suma += ((parseInt((digito % 10) + '') + (parseInt((digito / 10) + ''))));
-          //      console.log(suma+" suma"+coefValCedula[i]); 
-        }
-        suma = Math.round(suma);
-        //  console.log(verificador);
-        //  console.log(suma);
-        //  console.log(digito);
-        if ((Math.round(suma % 10) == 0) && (Math.round(suma % 10) == verificador)) {
-          cedulaCorrecta = true;
-        } else if ((10 - (Math.round(suma % 10))) == verificador) {
-          cedulaCorrecta = true;
-        } else {
-          cedulaCorrecta = false;
-        }
-      } else {
-        cedulaCorrecta = false;
-      }
-    } else {
-      cedulaCorrecta = false;
-    }
-    this.validador = cedulaCorrecta;
 
-  }
 }
