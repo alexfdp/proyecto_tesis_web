@@ -6,6 +6,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { SharedModule } from 'src/app/shared/shared/shared.module';
 import { EmpleadosService } from '../../services/empleados.service';
 import { Empleado } from 'src/app/models/Empleado';
+import { Puesto } from 'src/app/models/Puesto';
 import { CommonModule, DatePipe, NgIf } from '@angular/common';
 import { FormBuilder, FormsModule, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 @Component({
@@ -77,9 +78,11 @@ export class EmpleadosComponent {
 })
 export class AddEmpleadoDialog {
   public myForm!: FormGroup;
+  public puestos !: Puesto[]
 
-  constructor(private fb: FormBuilder) {
+  constructor(private fb: FormBuilder, private empleadosrv: EmpleadosService) {
     this.myForm = this.createMyForm();
+    this.consultarAllPuestos();
   }
 
   public get f(): any {
@@ -98,6 +101,19 @@ export class AddEmpleadoDialog {
       sueldo: ['', [Validators.required]],
       usuario: ['', [Validators.required, Validators.maxLength(20)]]
     });
+  }
+
+  private consultarAllPuestos() {
+    this.empleadosrv.getPuestos().subscribe({
+      next: (data) => {
+        console.log(data);
+        this.puestos = data;
+      },
+      error: (response) => {
+        var msg = response["error"]["message"]
+        console.log("mensaje api: " + msg);
+      }
+    })
   }
 
   submitFormulario() {
