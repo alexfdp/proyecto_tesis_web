@@ -56,16 +56,17 @@
         </div>
         <div class="col-md-4">
             <label class="form-label">Puesto</label>
-            <select id="puesto" class="form-select">
-                <option selected>Puesto_1</option>
-                <option>Puesto_2</option>
+            <select id="puesto" class="form-select" formControlName="puesto" (change)="capturar()">
+                <option value="{{dato.idpuesto}}" [selected]="puestos.at(0)" *ngFor="let dato of puestos">
+                    {{dato.descripcion}}
+                </option>
             </select>
         </div>
         <div class="col-md-4">
             <label class="form-label">Sueldo</label>
-            <input type="number" class="form-control" formControlName="sueldo" id="sueldo" required>
+            <input type="number" class="form-control" [class.is-invalid]="f.sueldo.errors && f.sueldo.touched" formControlName="sueldo" id="sueldo" value="{{sueldo}}" required>
             <div class="invalid-feedback">
-                Please provide a valid zip.
+                Por favor ingrese un sueldo
             </div>
         </div>
         <div class="col-md-4">

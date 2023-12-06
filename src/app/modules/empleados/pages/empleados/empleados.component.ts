@@ -7,7 +7,7 @@ import { SharedModule } from 'src/app/shared/shared/shared.module';
 import { EmpleadosService } from '../../services/empleados.service';
 import { Empleado } from 'src/app/models/Empleado';
 import { Puesto } from 'src/app/models/Puesto';
-import { CommonModule, DatePipe, NgIf } from '@angular/common';
+import { CommonModule, DatePipe, NgFor, NgIf } from '@angular/common';
 import { FormBuilder, FormsModule, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 @Component({
   selector: 'app-empleados',
@@ -74,7 +74,7 @@ export class EmpleadosComponent {
   templateUrl: 'add-empleado-dialog.html',
   styleUrls: ['./empleados.component.scss'],
   standalone: true,
-  imports: [SharedModule, NgIf, FormsModule, ReactiveFormsModule],
+  imports: [SharedModule, CommonModule, NgIf, NgFor, FormsModule, ReactiveFormsModule],
 })
 export class AddEmpleadoDialog {
   public myForm!: FormGroup;
@@ -98,7 +98,8 @@ export class AddEmpleadoDialog {
       direccion: ['', [Validators.required, Validators.maxLength(200)]],
       telefono: ['', [Validators.required, Validators.minLength(10), Validators.maxLength(10), Validators.pattern('[0-9]*')]],
       correo: ['', [Validators.required, Validators.maxLength(200), Validators.email]],
-      sueldo: ['', [Validators.required]],
+      sueldo: [, [Validators.required, Validators.min(1)]],
+      puesto: [''],
       usuario: ['', [Validators.required, Validators.maxLength(20)]]
     });
   }
@@ -106,8 +107,10 @@ export class AddEmpleadoDialog {
   private consultarAllPuestos() {
     this.empleadosrv.getPuestos().subscribe({
       next: (data) => {
-        console.log(data);
         this.puestos = data;
+        console.log(this.puestos[0])
+        this.sueldo = this.puestos[0].sueldo
+        this.f.sueldo.value = this.sueldo
       },
       error: (response) => {
         var msg = response["error"]["message"]
@@ -115,15 +118,23 @@ export class AddEmpleadoDialog {
       }
     })
   }
+  sueldo!:number
+  capturar() {
+    //this.f.sueldo = this.puestos.at(this.f.puesto.value - 1)!.sueldo
+    this.sueldo = this.puestos.at(this.f.puesto.value - 1)!.sueldo
+  }
 
   submitFormulario() {
+    console.log("valor sueldo: " + this.f.sueldo.value);
     if (this.myForm.invalid) {
+      console.log("error: " + this.f.sueldo.value)
       Object.values(this.myForm.controls).forEach(control => {
-        console.log("error: " + control);
+        control.getError
         control.markAllAsTouched();
       });
       return;
     }
   }
+
 
 }
