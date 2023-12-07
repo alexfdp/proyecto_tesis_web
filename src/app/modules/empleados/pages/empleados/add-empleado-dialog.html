@@ -51,20 +51,20 @@
             <label class="form-label">Correo</label>
             <input type="email" class="form-control" [class.is-invalid]="f.correo.errors && f.correo.touched" formControlName="correo" id="correo" required>
             <div class="invalid-feedback">
-                Please provide a valid zip.
+                Ingrese un coreo válido.
             </div>
         </div>
         <div class="col-md-4">
             <label class="form-label">Puesto</label>
-            <select id="puesto" class="form-select" formControlName="puesto" (change)="capturar()">
-                <option value="{{dato.idpuesto}}" [selected]="puestos.at(0)" *ngFor="let dato of puestos">
+            <select id="puesto" class="form-select" [(ngModel)]="opcionSlect" formControlName="puesto" (change)="capturar()">
+                <option value="{{dato.descripcion}}" *ngFor="let dato of puestos">
                     {{dato.descripcion}}
                 </option>
             </select>
         </div>
         <div class="col-md-4">
             <label class="form-label">Sueldo</label>
-            <input type="number" class="form-control" [class.is-invalid]="f.sueldo.errors && f.sueldo.touched" formControlName="sueldo" id="sueldo" value="{{sueldo}}" required>
+            <input type="number" class="form-control" [(ngModel)]="sueldo" [class.is-invalid]="f.sueldo.errors && f.sueldo.touched" formControlName="sueldo" id="sueldo" required>
             <div class="invalid-feedback">
                 Por favor ingrese un sueldo
             </div>
@@ -79,9 +79,10 @@
         </div>
         <div class="col-md-6">
             <label class="form-label">Nivel de acceso</label>
-            <select id="rol" class="form-select">
-                <option selected value="1">Admin</option>
-                <option value="1">Emple</option>
+            <select id="rol" class="form-select" [(ngModel)]="opcionrol" formControlName="rol">
+                <option value="{{dato.descripcion}}" *ngFor="let dato of roles">
+                    {{dato.descripcion}}
+                </option>
             </select>
         </div>
         <!-- <div class="col-12">

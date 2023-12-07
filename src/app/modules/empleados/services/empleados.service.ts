@@ -2,6 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Empleado } from 'src/app/models/Empleado';
 import { Puesto } from 'src/app/models/Puesto';
+import { Rol } from 'src/app/models/Rol';
 import { environment } from 'src/environments/environment.development';
 
 @Injectable({
@@ -10,6 +11,7 @@ import { environment } from 'src/environments/environment.development';
 export class EmpleadosService {
   private getempleados = "empleados"
   private getpuestos = "public/puestos"
+  private getroles = "public/roles"
 
   constructor(private http: HttpClient) { }
 
@@ -20,5 +22,9 @@ export class EmpleadosService {
 
   public getPuestos() {
     return this.http.get<Puesto[]>(`${environment.apiUrl}/${this.getpuestos}`);
+  }
+
+  public getRoles() {
+    return this.http.get<Rol[]>(`${environment.apiUrl}/${this.getroles}`);
   }
 }

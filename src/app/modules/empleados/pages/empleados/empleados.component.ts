@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
+import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
@@ -7,8 +7,9 @@ import { SharedModule } from 'src/app/shared/shared/shared.module';
 import { EmpleadosService } from '../../services/empleados.service';
 import { Empleado } from 'src/app/models/Empleado';
 import { Puesto } from 'src/app/models/Puesto';
-import { CommonModule, DatePipe, NgFor, NgIf } from '@angular/common';
+import { CommonModule, DatePipe, NgFor, NgForOf, NgIf } from '@angular/common';
 import { FormBuilder, FormsModule, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { Rol } from 'src/app/models/Rol';
 @Component({
   selector: 'app-empleados',
   templateUrl: './empleados.component.html',
@@ -48,9 +49,11 @@ export class EmpleadosComponent {
       this.empleados.paginator.firstPage();
     }
   }
+
   formatofecha(fecha: Date) {
-    return this.datepipe.transform(fecha, 'dd/MMM/yyyy HH:mm');
+    return this.datepipe.transform(fecha, 'dd/MMM/yyyy');
   }
+
   openDialog(): void {
     const dialogRef = this.dialog.open(AddEmpleadoDialog, {
       //   data: new Producto
@@ -63,7 +66,6 @@ export class EmpleadosComponent {
     //     this.agregarProducto(this.productoNuevo);
     //   }
     // });
-
   }
 }
 
@@ -74,19 +76,19 @@ export class EmpleadosComponent {
   templateUrl: 'add-empleado-dialog.html',
   styleUrls: ['./empleados.component.scss'],
   standalone: true,
-  imports: [SharedModule, CommonModule, NgIf, NgFor, FormsModule, ReactiveFormsModule],
+  imports: [CommonModule, MatDialogModule, ReactiveFormsModule],
 })
 export class AddEmpleadoDialog {
   public myForm!: FormGroup;
-  public puestos !: Puesto[]
+  public puestos!: Puesto[]
+  public roles!: Rol[]
+  opcionSlect = ""
+  opcionrol = ""
+  sueldo = 0
 
   constructor(private fb: FormBuilder, private empleadosrv: EmpleadosService) {
     this.myForm = this.createMyForm();
-    this.consultarAllPuestos();
-  }
-
-  public get f(): any {
-    return this, this.myForm.controls;
+    this.consultarAllPuestosRoles();
   }
 
   private createMyForm(): FormGroup {
@@ -98,19 +100,31 @@ export class AddEmpleadoDialog {
       direccion: ['', [Validators.required, Validators.maxLength(200)]],
       telefono: ['', [Validators.required, Validators.minLength(10), Validators.maxLength(10), Validators.pattern('[0-9]*')]],
       correo: ['', [Validators.required, Validators.maxLength(200), Validators.email]],
-      sueldo: [, [Validators.required, Validators.min(1)]],
+      sueldo: ['', [Validators.required, Validators.min(0)]],
       puesto: [''],
-      usuario: ['', [Validators.required, Validators.maxLength(20)]]
+      usuario: ['', [Validators.required, Validators.maxLength(20)]],
+      rol: [''],
     });
   }
 
-  private consultarAllPuestos() {
+  private consultarAllPuestosRoles() {
     this.empleadosrv.getPuestos().subscribe({
       next: (data) => {
         this.puestos = data;
-        console.log(this.puestos[0])
+        this.opcionSlect = this.puestos[0].descripcion;
         this.sueldo = this.puestos[0].sueldo
-        this.f.sueldo.value = this.sueldo
+        //this.f.sueldo.value = this.sueldo
+      },
+      error: (response) => {
+        var msg = response["error"]["message"]
+        console.log("mensaje api: " + msg);
+      }
+    })
+
+    this.empleadosrv.getRoles().subscribe({
+      next: (data) => {
+        this.roles = data;
+        this.opcionrol = this.roles[0].descripcion;
       },
       error: (response) => {
         var msg = response["error"]["message"]
@@ -118,23 +132,31 @@ export class AddEmpleadoDialog {
       }
     })
   }
-  sueldo!:number
+
+  public get f(): any {
+    return this, this.myForm.controls;
+  }
+
   capturar() {
-    //this.f.sueldo = this.puestos.at(this.f.puesto.value - 1)!.sueldo
-    this.sueldo = this.puestos.at(this.f.puesto.value - 1)!.sueldo
+    //console.log("indice: " + this.f.puesto.value)
+    this.f.sueldo.value = this.puestos.at(this.f.puesto.value - 1)!.sueldo
+    this.opcionSlect = this.puestos.find(puesto => puesto.descripcion === this.f.puesto.value)!.descripcion;
+    this.sueldo = this.puestos.find(puesto => puesto.descripcion === this.f.puesto.value)!.sueldo
+    // console.log("opcion seleccionada: " + this.opcionSlect)
+    // console.log("sueldo: " + this.sueldo)
   }
 
   submitFormulario() {
-    console.log("valor sueldo: " + this.f.sueldo.value);
+    // console.log(this.sueldo);
+    // console.log("valor sueldo: " + this.f.sueldo.value);
+    // console.log(this.myForm.controls['sueldo'].errors)
     if (this.myForm.invalid) {
-      console.log("error: " + this.f.sueldo.value)
+      console.log("Formulario inválido")
       Object.values(this.myForm.controls).forEach(control => {
-        control.getError
+        // console.log(control.hasError('required'))
         control.markAllAsTouched();
       });
       return;
     }
   }
-
-
 }
