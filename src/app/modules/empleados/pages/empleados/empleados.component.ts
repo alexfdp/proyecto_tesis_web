@@ -1,15 +1,16 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, ViewChild, importProvidersFrom } from '@angular/core';
+import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
-import { SharedModule } from 'src/app/shared/shared/shared.module';
 import { EmpleadosService } from '../../services/empleados.service';
 import { Empleado } from 'src/app/models/Empleado';
 import { Puesto } from 'src/app/models/Puesto';
-import { CommonModule, DatePipe, NgFor, NgForOf, NgIf } from '@angular/common';
-import { FormBuilder, FormsModule, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { CommonModule, DatePipe } from '@angular/common';
+import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Rol } from 'src/app/models/Rol';
+import * as moment from 'moment';
 @Component({
   selector: 'app-empleados',
   templateUrl: './empleados.component.html',
@@ -76,7 +77,7 @@ export class EmpleadosComponent {
   templateUrl: 'add-empleado-dialog.html',
   styleUrls: ['./empleados.component.scss'],
   standalone: true,
-  imports: [CommonModule, MatDialogModule, ReactiveFormsModule],
+  imports: [CommonModule, MatDialogModule, ReactiveFormsModule, BsDatepickerModule],
 })
 export class AddEmpleadoDialog {
   public myForm!: FormGroup;
@@ -85,8 +86,11 @@ export class AddEmpleadoDialog {
   opcionSlect = ""
   opcionrol = ""
   sueldo = 0
-
+  fechamac !: Date
+  fechamin !: Date
   constructor(private fb: FormBuilder, private empleadosrv: EmpleadosService) {
+    this.fechamac = new Date("2030-01-31")
+    this.fechamin = moment().subtract(18, 'year').toDate();
     this.myForm = this.createMyForm();
     this.consultarAllPuestosRoles();
   }

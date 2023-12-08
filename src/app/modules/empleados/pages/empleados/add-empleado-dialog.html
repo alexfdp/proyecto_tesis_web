@@ -25,19 +25,16 @@
             </div>
         </div>
         <div class="col-md-3">
+            <label class="form-label">Fecha de Nacimiento</label>
+            <input type="text" bsDatepicker class="form-control" formControlName="fecha_nacimiento"
+                [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" [maxDate]="fechamin">
+        </div>
+        <div class="col-md-3">
             <label class="form-label">Cédula</label>
             <input type="text" class="form-control" formControlName="cedula" id="cedula" maxlength="10"
                 [class.is-invalid]="f.cedula.errors && f.cedula.touched" required>
             <div class="invalid-feedback">
                 Cédula Invalida
-            </div>
-        </div>
-        <div class="col-md-6">
-            <label for="validationCustom03" class="form-label">Dirección</label>
-            <input type="text" class="form-control" [class.is-invalid]="f.direccion.errors && f.direccion.touched"
-                formControlName="direccion" id="direccion" required>
-            <div class="invalid-feedback">
-                Por favor ingrese una dirección
             </div>
         </div>
         <div class="col-md-3">
@@ -54,6 +51,14 @@
                 formControlName="correo" id="correo" required>
             <div class="invalid-feedback">
                 Ingrese un coreo válido.
+            </div>
+        </div>
+        <div class="col-md-3">
+            <label for="validationCustom03" class="form-label">Dirección</label>
+            <input type="text" class="form-control" [class.is-invalid]="f.direccion.errors && f.direccion.touched"
+                formControlName="direccion" id="direccion" required>
+            <div class="invalid-feedback">
+                Por favor ingrese una dirección
             </div>
         </div>
         <div class="col-md-4">
@@ -91,10 +96,8 @@
         </div>
         <div class="col-md-4">
             <label class="form-label">Fecha de Ingreso</label>
-            <div class="input-group date">
-                <input type="text" class="form-control"><span class="input-group-addon"><i
-                        class="glyphicon glyphicon-th"></i></span>
-            </div>
+            <input type="text" bsDatepicker class="form-control" formControlName="fecha_ingreso"
+                [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" [placement]="'top'" [minDate]="fechamin" [maxDate]="fechamac" >
         </div>
         <!-- <div class="col-12">
             <div class="form-check">
