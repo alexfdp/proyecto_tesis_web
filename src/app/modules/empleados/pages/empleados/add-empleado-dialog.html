@@ -26,15 +26,16 @@
         </div>
         <div class="col-md-3">
             <label class="form-label">Cédula</label>
-            <input type="text" class="form-control" formControlName="cedula" id="cedula"
-                maxlength="10" [class.is-invalid]="f.cedula.errors && f.cedula.touched" required>
+            <input type="text" class="form-control" formControlName="cedula" id="cedula" maxlength="10"
+                [class.is-invalid]="f.cedula.errors && f.cedula.touched" required>
             <div class="invalid-feedback">
                 Cédula Invalida
             </div>
         </div>
         <div class="col-md-6">
             <label for="validationCustom03" class="form-label">Dirección</label>
-            <input type="text" class="form-control" [class.is-invalid]="f.direccion.errors && f.direccion.touched" formControlName="direccion" id="direccion" required>
+            <input type="text" class="form-control" [class.is-invalid]="f.direccion.errors && f.direccion.touched"
+                formControlName="direccion" id="direccion" required>
             <div class="invalid-feedback">
                 Por favor ingrese una dirección
             </div>
@@ -49,14 +50,16 @@
         </div>
         <div class="col-md-3">
             <label class="form-label">Correo</label>
-            <input type="email" class="form-control" [class.is-invalid]="f.correo.errors && f.correo.touched" formControlName="correo" id="correo" required>
+            <input type="email" class="form-control" [class.is-invalid]="f.correo.errors && f.correo.touched"
+                formControlName="correo" id="correo" required>
             <div class="invalid-feedback">
                 Ingrese un coreo válido.
             </div>
         </div>
         <div class="col-md-4">
             <label class="form-label">Puesto</label>
-            <select id="puesto" class="form-select" [(ngModel)]="opcionSlect" formControlName="puesto" (change)="capturar()">
+            <select id="puesto" class="form-select" [(ngModel)]="opcionSlect" formControlName="puesto"
+                (change)="capturar()">
                 <option value="{{dato.descripcion}}" *ngFor="let dato of puestos">
                     {{dato.descripcion}}
                 </option>
@@ -64,7 +67,8 @@
         </div>
         <div class="col-md-4">
             <label class="form-label">Sueldo</label>
-            <input type="number" class="form-control" [(ngModel)]="sueldo" [class.is-invalid]="f.sueldo.errors && f.sueldo.touched" formControlName="sueldo" id="sueldo" required>
+            <input type="number" class="form-control" [(ngModel)]="sueldo"
+                [class.is-invalid]="f.sueldo.errors && f.sueldo.touched" formControlName="sueldo" id="sueldo" required>
             <div class="invalid-feedback">
                 Por favor ingrese un sueldo
             </div>
@@ -74,16 +78,23 @@
             <input type="text" [class.is-invalid]="f.usuario.errors && f.usuario.touched" class="form-control"
                 formControlName="usuario" id="usuario" required>
             <div class="invalid-feedback">
-                Please provide a valid zip.
+                Ingrese un usuario válido.
             </div>
         </div>
-        <div class="col-md-6">
+        <div class="col-md-4">
             <label class="form-label">Nivel de acceso</label>
             <select id="rol" class="form-select" [(ngModel)]="opcionrol" formControlName="rol">
                 <option value="{{dato.descripcion}}" *ngFor="let dato of roles">
                     {{dato.descripcion}}
                 </option>
             </select>
+        </div>
+        <div class="col-md-4">
+            <label class="form-label">Fecha de Ingreso</label>
+            <div class="input-group date">
+                <input type="text" class="form-control"><span class="input-group-addon"><i
+                        class="glyphicon glyphicon-th"></i></span>
+            </div>
         </div>
         <!-- <div class="col-12">
             <div class="form-check">

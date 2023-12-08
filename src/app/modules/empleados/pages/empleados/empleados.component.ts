@@ -102,7 +102,7 @@ export class AddEmpleadoDialog {
       correo: ['', [Validators.required, Validators.maxLength(200), Validators.email]],
       sueldo: ['', [Validators.required, Validators.min(0)]],
       puesto: [''],
-      usuario: ['', [Validators.required, Validators.maxLength(20)]],
+      usuario: ['', [Validators.required, Validators.maxLength(45)]],
       rol: [''],
     });
   }
