@@ -3,6 +3,7 @@ import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
+import generator from 'generate-password-ts';
 import { MatTableDataSource } from '@angular/material/table';
 import { EmpleadosService } from '../../services/empleados.service';
 import { Empleado } from 'src/app/models/Empleado';
@@ -11,6 +12,7 @@ import { CommonModule, DatePipe } from '@angular/common';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Rol } from 'src/app/models/Rol';
 import * as moment from 'moment';
+import { EmpleadoDAO } from 'src/app/models/EmpleadoDAO';
 @Component({
   selector: 'app-empleados',
   templateUrl: './empleados.component.html',
@@ -83,13 +85,14 @@ export class AddEmpleadoDialog {
   public myForm!: FormGroup;
   public puestos!: Puesto[]
   public roles!: Rol[]
+  private empleado!: EmpleadoDAO
   opcionSlect = ""
   opcionrol = ""
   sueldo = 0
   fechamac !: Date
   fechamin !: Date
-  constructor(private fb: FormBuilder, private empleadosrv: EmpleadosService) {
-    this.fechamac = new Date("2030-01-31")
+  constructor(private fb: FormBuilder, private empleadosrv: EmpleadosService, private miDatePipe: DatePipe) {
+    this.fechamac = moment().subtract(59, 'year').toDate();
     this.fechamin = moment().subtract(18, 'year').toDate();
     this.myForm = this.createMyForm();
     this.consultarAllPuestosRoles();
@@ -106,9 +109,18 @@ export class AddEmpleadoDialog {
       correo: ['', [Validators.required, Validators.maxLength(200), Validators.email]],
       sueldo: ['', [Validators.required, Validators.min(0)]],
       puesto: [''],
+      fecha_nacimient: ['', [Validators.required]],
+      fecha_ingres: ['', [Validators.required]],
       usuario: ['', [Validators.required, Validators.maxLength(45)]],
       rol: [''],
     });
+  }
+
+  onValueChanges(event: KeyboardEvent): void {
+    const keyCode = event.key.charCodeAt(0)
+    if (keyCode < 47 || keyCode > 57) {
+      event.preventDefault();
+    }
   }
 
   private consultarAllPuestosRoles() {
@@ -151,16 +163,43 @@ export class AddEmpleadoDialog {
   }
 
   submitFormulario() {
-    // console.log(this.sueldo);
-    // console.log("valor sueldo: " + this.f.sueldo.value);
-    // console.log(this.myForm.controls['sueldo'].errors)
+    // console.log(this.myForm.controls['fecha_nacimiento'].errors)
     if (this.myForm.invalid) {
       console.log("Formulario inválido")
       Object.values(this.myForm.controls).forEach(control => {
-        // console.log(control.hasError('required'))
         control.markAllAsTouched();
       });
       return;
     }
+
+    const password = generator.generate({
+      length: 10,
+      numbers: true
+    });
+    
+    this.empleado = this.myForm.value
+    // console.log(this.empleado)
+    this.empleado.fecha_contratacion = this.miDatePipe.transform(this.empleado.fecha_ingres, 'yyyy-MM-dd HH:mm:ss');
+    this.empleado.fecha_nacimiento = this.miDatePipe.transform(this.empleado.fecha_nacimient, 'yyyy-MM-dd HH:mm:ss');
+    // console.log(this.empleado.fecha_nacimiento)
+    this.empleado.puesto_id = this.puestos.find(puesto => puesto.descripcion === this.f.puesto.value)!.idpuesto;
+    this.empleado.rol_id = this.roles.find(rol => rol.descripcion === this.f.rol.value)!.idrol
+    this.empleado.contrasena = password
+    console.log(this.empleado)
+    this.registro(this.empleado)
+  }
+
+
+  registro(employee: EmpleadoDAO) {
+    this.empleadosrv.postEmpleado(employee).subscribe({
+      next: (mensaje) => {
+        console.log("Ok de API: "+ mensaje.message)
+      },
+      error: (response: any) => {
+        var msg = response["error"]["message"]
+        console.log("mensaje error api: " + msg);
+        alert(msg);
+      }
+    })
   }
 }

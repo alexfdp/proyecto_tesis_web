@@ -1,8 +1,11 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { AuthToken } from 'src/app/models/AuthToken';
 import { Empleado } from 'src/app/models/Empleado';
+import { EmpleadoDAO } from 'src/app/models/EmpleadoDAO';
 import { Puesto } from 'src/app/models/Puesto';
 import { Rol } from 'src/app/models/Rol';
+import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment.development';
 
 @Injectable({
@@ -26,5 +29,9 @@ export class EmpleadosService {
 
   public getRoles() {
     return this.http.get<Rol[]>(`${environment.apiUrl}/${this.getroles}`);
+  }
+
+  public postEmpleado(dataEmployee: EmpleadoDAO): Observable<any> {
+    return this.http.post<any>(`${environment.apiUrl}/${this.getempleados}`, dataEmployee);
   }
 }
