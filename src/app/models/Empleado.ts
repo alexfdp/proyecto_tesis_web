@@ -1,4 +1,5 @@
 export interface Empleado {
+    idempleado: number
     nombre: string
     apellido: string
     apellido_2: string

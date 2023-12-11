@@ -1,9 +1,11 @@
 import { Component, HostBinding, Input } from '@angular/core';
+import { BehaviorSubject } from 'rxjs';
 import { MatDrawer, MatDrawerMode } from '@angular/material/sidenav';
 import { ViewChild } from '@angular/core'
 import { UserData } from 'src/app/models/UserData';
 import { MenuValService } from './service/menu-val.service';
 import { Router } from '@angular/router';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-menu',
@@ -54,10 +56,19 @@ export class MenuComponent {
       error: (response: any) => {
         var msg = response["error"]["message"]
         console.log("mensaje api: " + msg);
-        alert(msg);
+        Swal.fire({
+          title: 'Error al consultar datos',
+          text: 'Error: ' + msg.toUpperCase(),
+          icon: 'error',
+          confirmButtonText: 'Ok'
+        });
         localStorage.removeItem("token");
         this.routerprd.navigateByUrl("/login")
       }
     })
+  }
+
+  logout(){
+    
   }
 }

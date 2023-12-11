@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { LoginServiceService } from '../../services/login-service.service';
 import { Auth } from 'src/app/models/Auth';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-login',
@@ -30,8 +31,13 @@ export class LoginComponent {
       },
       error: (response: any) => {
         var msg = response["error"]["message"]
+        Swal.fire({
+          title: 'Error al autenticar',
+          text: 'Error: ' + msg,
+          icon: 'error',
+          confirmButtonText: 'Ok'
+        });
         console.log("mensaje api: " + msg);
-        alert(msg);
       }
     });
   }

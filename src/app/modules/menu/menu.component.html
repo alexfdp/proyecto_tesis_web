@@ -142,6 +142,15 @@
                 <span>Tendencias</span>
             </button>
         </div>
+
+        <mat-divider></mat-divider>
+
+        <div class="sidebar-links" fxLayout="column" fxLayoutAlign="space-around none">
+            <button mat-button class="menu-button" fxLayout="row" fxLayoutAlign="start center" (click)="logout()">
+                <mat-icon>exit_to_app</mat-icon>
+                <span>Cerrar Sesión</span>
+            </button>
+        </div>
     </mat-drawer>
 
     <mat-drawer-content class="content">
