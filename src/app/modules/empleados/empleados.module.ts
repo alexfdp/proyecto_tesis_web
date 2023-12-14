@@ -22,7 +22,6 @@ import { esLocale } from 'ngx-bootstrap/locale';
     EmpleadosRoutingModule,
     SharedModule,
     BsDatepickerModule.forRoot(),
-    
   ],
 })
 export class EmpleadosModule { }

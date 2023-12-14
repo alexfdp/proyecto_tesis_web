@@ -61,7 +61,7 @@ export class EmpleadosComponent {
   openDialog(): void {
     const dialogRef = this.dialog.open(AddEmpleadoDialog, {});
     dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
+      console.log('The dialog was closed: ' + result);
       this.consultarAllEmpleados();
     });
   }
@@ -188,7 +188,6 @@ export class AddEmpleadoDialog {
     this.empleado.puesto_id = this.puestos.find(puesto => puesto.descripcion === this.f.puesto.value)!.idpuesto;
     this.empleado.rol_id = this.roles.find(rol => rol.descripcion === this.f.rol.value)!.idrol
     this.empleado.contrasena = password
-    console.log(this.empleado.contrasena)
     this.registro(this.empleado)
   }
 
@@ -201,6 +200,7 @@ export class AddEmpleadoDialog {
           icon: 'success',
           confirmButtonText: 'Ok'
         });
+        this.dialogRef.close();
       },
       error: (response: any) => {
         var msg = response["error"]["message"]
@@ -211,9 +211,9 @@ export class AddEmpleadoDialog {
           confirmButtonText: 'Ok'
         });
         console.log("mensaje error api: " + msg);
+        this.dialogRef.close();
       }
     })
-    this.dialogRef.close();
   }
 
   onNoClick(): void {
@@ -227,7 +227,7 @@ export class AddEmpleadoDialog {
   templateUrl: 'edit-empleado-dialog.html',
   styleUrls: ['./empleados.component.scss'],
   standalone: true,
-  imports: [CommonModule, MatDialogModule, MatInputModule,FormsModule, ReactiveFormsModule],
+  imports: [CommonModule, MatDialogModule, MatInputModule, FormsModule, ReactiveFormsModule],
 })
 export class EditEmpleadoDialog {
   public myForm!: FormGroup;
@@ -243,7 +243,7 @@ export class EditEmpleadoDialog {
     this.datos()
   }
 
-  datos(){
+  datos() {
     this.nombres = this.data.nombre + " " + this.data.apellido + " " + this.data.apellido_2
   }
 
