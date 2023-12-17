@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { LoginServiceService } from '../../services/login-service.service';
 import { Auth } from 'src/app/models/Auth';
 import Swal from 'sweetalert2';
+import { catchError, retry } from 'rxjs/operators';
 
 @Component({
   selector: 'app-login',

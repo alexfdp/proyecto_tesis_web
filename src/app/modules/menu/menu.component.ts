@@ -6,6 +6,7 @@ import { UserData } from 'src/app/models/UserData';
 import { MenuValService } from './service/menu-val.service';
 import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
+import { catchError, retry } from 'rxjs/operators';
 
 @Component({
   selector: 'app-menu',
@@ -68,7 +69,7 @@ export class MenuComponent {
     })
   }
 
-  logout(){
-    
+  logout() {
+
   }
 }

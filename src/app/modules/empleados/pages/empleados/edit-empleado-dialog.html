@@ -1,26 +1,32 @@
 <div mat-dialog-content class="texto">
-    <form *ngIf="data" class="row g-3 needs-validation" [formGroup]="myForm" (ngSubmit)="submitFormulario()" validate>
-        <div class="col-md-3">
+    <h5 class="card-title">Actualizar Empleado</h5>
+    <mat-divider></mat-divider>
+    <br>
+    <form class="row g-3 needs-validation" [formGroup]="myForm" (ngSubmit)="submitFormulario()" validate>
+        <div class="col-md-6">
             <label class="form-label texto">Nombre</label>
-            <input matInput type="text" class="form-control" [value]="nombres">
-            <div class="invalid-feedback">
-                Ingrese un nombre válido
-            </div>
+            <input matInput type="text" class="form-control" formControlName="nombre" readonly>
         </div>
         <div class="col-md-3">
             <label class="form-label">Fecha de Nacimiento</label>
-            <input type="text" bsDatepicker class="form-control" formControlName="fecha_nacimient"
-                [class.is-invalid]="f.fecha_nacimient.errors" placeholder="dd/mm/yyyy" >
-            <div class="invalid-feedback">
-                Ingrese una fecha válida
-            </div>
+            <input type="text" class="form-control" formControlName="fecha_nacimiento" placeholder="dd/mm/yyyy"
+                readonly>
         </div>
         <div class="col-md-3">
             <label class="form-label">Cédula</label>
             <input type="text" class="form-control" formControlName="cedula" id="cedula" maxlength="10"
-                [class.is-invalid]="f.cedula.errors && f.cedula.touched" required>
+                formControlName="cedula" readonly>
+        </div>
+        <div class="col-md-3">
+            <label class="form-label">Fecha de Ingreso</label>
+            <input type="text" class="form-control" placeholder="dd/mm/yyyy" formControlName="fecha_ingreso">
+        </div>
+        <div class="col-md-3">
+            <label for="validationCustom03" class="form-label">Dirección</label>
+            <input type="text" class="form-control" [class.is-invalid]="f.direccion.errors && f.direccion.touched"
+                formControlName="direccion" id="direccion" required>
             <div class="invalid-feedback">
-                Cédula Invalida
+                Por favor ingrese una dirección
             </div>
         </div>
         <div class="col-md-3">
@@ -40,31 +46,23 @@
             </div>
         </div>
         <div class="col-md-3">
-            <label for="validationCustom03" class="form-label">Dirección</label>
-            <input type="text" class="form-control" [class.is-invalid]="f.direccion.errors && f.direccion.touched"
-                formControlName="direccion" id="direccion" required>
-            <div class="invalid-feedback">
-                Por favor ingrese una dirección
-            </div>
-        </div>
-        <!-- <div class="col-md-4">
             <label class="form-label">Puesto</label>
-            <select id="puesto" class="form-select" [(ngModel)]="opcionSlect" formControlName="puesto"
-                (change)="capturar()">
-                <option value="{{dato.descripcion}}" *ngFor="let dato of puestos">
+            <select id="puesto" class="form-select" formControlName="puesto" (change)="capturar()">
+                <option value="{{dato.descripcion}}" *ngFor="let dato of puestos"
+                    [attr.selected]="dato.descripcion === opcionSlect ? true : null">
                     {{dato.descripcion}}
                 </option>
             </select>
-        </div> -->
-        <!-- <div class="col-md-4">
+        </div>
+        <div class="col-md-3">
             <label class="form-label">Sueldo</label>
-            <input type="number" class="form-control" [(ngModel)]="sueldo"
+            <input type="number" class="form-control" [value]="myForm.get('sueldo')!.value"
                 [class.is-invalid]="f.sueldo.errors && f.sueldo.touched" formControlName="sueldo" id="sueldo" required>
             <div class="invalid-feedback">
                 Por favor ingrese un sueldo
             </div>
-        </div> -->
-        <div class="col-md-4">
+        </div>
+        <div class="col-md-3">
             <label class="form-label">Usuario</label>
             <input type="text" [class.is-invalid]="f.usuario.errors && f.usuario.touched" class="form-control"
                 formControlName="usuario" id="usuario" required>
@@ -72,18 +70,19 @@
                 Ingrese un usuario válido.
             </div>
         </div>
-        <!-- <div class="col-md-4">
+        <div class="col-md-3">
             <label class="form-label">Nivel de acceso</label>
-            <select id="rol" class="form-select" [(ngModel)]="opcionrol" formControlName="rol">
-                <option value="{{dato.descripcion}}" *ngFor="let dato of roles">
+            <select id="rol" class="form-select" formControlName="rol" (change)="capturar_rol()">
+                <option value="{{dato.descripcion}}" *ngFor="let dato of roles"
+                    [attr.selected]="dato.descripcion === opcionrol ? true : null">
                     {{dato.descripcion}}
                 </option>
             </select>
-        </div> -->
+        </div>
         <div class="col-12">
             <div class="d-grid gap-2 d-md-flex justify-content-md-end">
                 <button class="btn btn-danger me-md-2" (click)="onNoClick()" type="button">Cancelar</button>
-                <button class="btn btn-primary" type="submit">Registrar</button>
+                <button class="btn btn-primary" type="submit">Actualizar</button>
             </div>
         </div>
     </form>

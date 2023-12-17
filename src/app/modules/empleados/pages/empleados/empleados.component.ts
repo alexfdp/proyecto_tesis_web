@@ -14,7 +14,10 @@ import { Rol } from 'src/app/models/Rol';
 import * as moment from 'moment';
 import { EmpleadoDAO } from 'src/app/models/EmpleadoDAO';
 import Swal from 'sweetalert2';
+import { forkJoin } from 'rxjs';
 import { MatInputModule } from '@angular/material/input';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatDividerModule } from '@angular/material/divider';
 @Component({
   selector: 'app-empleados',
   templateUrl: './empleados.component.html',
@@ -26,6 +29,26 @@ export class EmpleadosComponent {
   empleadoSelect!: Empleado
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
+  public puestos!: Puesto[]
+  public roles!: Rol[]
+
+  private consultarAllPuestosRoles() {
+    forkJoin([
+      this.empleadosrv.getPuestos(),
+      this.empleadosrv.getRoles()
+    ]).subscribe({
+      next: ([puestos, roles]) => {
+        this.puestos = puestos;
+        this.roles = roles;
+        // this.opcionSlect = this.puestos.find(puesto => puesto.descripcion === this.data.puesto)?.descripcion || '';
+        console.log('leyó todos los puestos y roles');
+      },
+      error: (response) => {
+        var msg = response['error']['message'];
+        console.log('mensaje api: ' + msg);
+      }
+    });
+  }
 
   private consultarAllEmpleados() {
     this.empleadosrv.getAllEmpleados().subscribe({
@@ -43,6 +66,7 @@ export class EmpleadosComponent {
 
   constructor(public dialog: MatDialog, private datepipe: DatePipe, private empleadosrv: EmpleadosService) {
     this.consultarAllEmpleados();
+    this.consultarAllPuestosRoles();
   }
 
   applyFilter(event: Event) {
@@ -59,7 +83,9 @@ export class EmpleadosComponent {
   }
 
   openDialog(): void {
-    const dialogRef = this.dialog.open(AddEmpleadoDialog, {});
+    const dialogRef = this.dialog.open(AddEmpleadoDialog, {
+      data: { puestos: this.puestos, roles: this.roles }
+    });
     dialogRef.afterClosed().subscribe(result => {
       console.log('The dialog was closed: ' + result);
       this.consultarAllEmpleados();
@@ -68,12 +94,32 @@ export class EmpleadosComponent {
 
   openeditdialog(): void {
     const dialogRef = this.dialog.open(EditEmpleadoDialog, {
-      data: this.empleadoSelect
+      data: { empleado: this.empleadoSelect, puestos: this.puestos, roles: this.roles }
     });
-    // dialogRef.afterClosed().subscribe(result => {
-    //   console.log('The dialog was closed');
-    //   this.consultarAllEmpleados();
-    // });
+  }
+
+  updateEstado() {
+    this.empleadosrv.putEstado(this.empleadoSelect).subscribe({
+      next: (mensaje) => {
+        console.log("Ok de API: " + mensaje.message)
+        Swal.fire({
+          title: 'Estado actualizado correctamente',
+          icon: 'success',
+          confirmButtonText: 'Ok'
+        });
+        this.consultarAllEmpleados();
+      },
+      error: (response: any) => {
+        var msg = response["error"]["message"]
+        Swal.fire({
+          title: 'Error al actualizar estado',
+          text: 'Error: ' + msg.toUpperCase(),
+          icon: 'error',
+          confirmButtonText: 'Ok'
+        });
+        console.log("mensaje error api: " + msg);
+      }
+    })
   }
 }
 
@@ -84,12 +130,14 @@ export class EmpleadosComponent {
   templateUrl: 'add-empleado-dialog.html',
   styleUrls: ['./empleados.component.scss'],
   standalone: true,
-  imports: [CommonModule, MatDialogModule, ReactiveFormsModule, BsDatepickerModule],
+  imports: [CommonModule, MatDialogModule, ReactiveFormsModule,
+    BsDatepickerModule, MatDividerModule],
 })
 export class AddEmpleadoDialog {
   public myForm!: FormGroup;
   public puestos!: Puesto[]
   public roles!: Rol[]
+  validauser = true;
   private empleado!: EmpleadoDAO
   opcionSlect = ""
   opcionrol = ""
@@ -98,11 +146,30 @@ export class AddEmpleadoDialog {
   fechamin !: Date
 
   constructor(public dialogRef: MatDialogRef<AddEmpleadoDialog>, private fb: FormBuilder,
-    private empleadosrv: EmpleadosService, private miDatePipe: DatePipe) {
+    private empleadosrv: EmpleadosService, private miDatePipe: DatePipe,
+    @Inject(MAT_DIALOG_DATA) public data: any) {
+    this.puestos = data.puestos;
+    this.roles = data.roles;
+    this.sueldo = this.puestos[0].sueldo
+    this.opcionSlect = this.puestos[0].descripcion;
+    this.opcionrol = this.roles[0].descripcion;
     this.fechamac = moment().subtract(59, 'year').toDate();
     this.fechamin = moment().subtract(18, 'year').toDate();
     this.myForm = this.createMyForm();
-    this.consultarAllPuestosRoles();
+  }
+
+  applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.empleadosrv.getUsuario(filterValue).subscribe({
+      next: (data) => {
+        this.validauser = true
+      },
+      error: (response) => {
+        this.validauser = false
+        var msg = response["error"]["message"]
+        console.log("Error de la API: " + msg);
+      }
+    })
   }
 
   private createMyForm(): FormGroup {
@@ -114,12 +181,12 @@ export class AddEmpleadoDialog {
       direccion: ['', [Validators.required, Validators.maxLength(200)]],
       telefono: ['', [Validators.required, Validators.minLength(10), Validators.maxLength(10), Validators.pattern('[0-9]*')]],
       correo: ['', [Validators.required, Validators.maxLength(200), Validators.email]],
-      sueldo: ['', [Validators.required, Validators.min(0)]],
-      puesto: [''],
+      sueldo: [this.sueldo, [Validators.required, Validators.min(0)]],
+      puesto: [this.opcionSlect],
       fecha_nacimient: ['', [Validators.required]],
       fecha_ingres: ['', [Validators.required]],
-      usuario: ['', [Validators.required, Validators.maxLength(45)]],
-      rol: [''],
+      usuario: ['', [Validators.required, Validators.maxLength(45), Validators.pattern('[a-zA-ZñÑ0-9_]*')]],
+      rol: [this.opcionrol],
     });
   }
 
@@ -130,43 +197,18 @@ export class AddEmpleadoDialog {
     }
   }
 
-  private consultarAllPuestosRoles() {
-    this.empleadosrv.getPuestos().subscribe({
-      next: (data) => {
-        this.puestos = data;
-        this.opcionSlect = this.puestos[0].descripcion;
-        this.sueldo = this.puestos[0].sueldo
-      },
-      error: (response) => {
-        var msg = response["error"]["message"]
-        console.log("mensaje api: " + msg);
-      }
-    })
-
-    this.empleadosrv.getRoles().subscribe({
-      next: (data) => {
-        this.roles = data;
-        this.opcionrol = this.roles[0].descripcion;
-      },
-      error: (response) => {
-        var msg = response["error"]["message"]
-        console.log("mensaje api: " + msg);
-      }
-    })
-  }
-
   public get f(): any {
     return this, this.myForm.controls;
   }
 
   capturar() {
-    this.f.sueldo.value = this.puestos.at(this.f.puesto.value - 1)!.sueldo
     this.opcionSlect = this.puestos.find(puesto => puesto.descripcion === this.f.puesto.value)!.descripcion;
-    this.sueldo = this.puestos.find(puesto => puesto.descripcion === this.f.puesto.value)!.sueldo
+    this.sueldo = this.puestos.find(puesto => puesto.descripcion === this.f.puesto.value)!.sueldo;
+    this.f.sueldo.value = this.sueldo;
   }
 
   submitFormulario() {
-    // console.log(this.myForm.controls['fecha_nacimiento'].errors)
+    console.log(this.myForm.controls['usuario'].errors)
     if (this.myForm.invalid) {
       console.log("Formulario inválido")
       Object.values(this.myForm.controls).forEach(control => {
@@ -227,24 +269,41 @@ export class AddEmpleadoDialog {
   templateUrl: 'edit-empleado-dialog.html',
   styleUrls: ['./empleados.component.scss'],
   standalone: true,
-  imports: [CommonModule, MatDialogModule, MatInputModule, FormsModule, ReactiveFormsModule],
+  imports: [MatFormFieldModule, MatDialogModule, ReactiveFormsModule,
+    BsDatepickerModule, MatInputModule, FormsModule, CommonModule, MatDividerModule
+  ],
 })
 export class EditEmpleadoDialog {
   public myForm!: FormGroup;
-  deshabilitado = true
-  nombres!: string
-
+  empleado!: Empleado
+  public puestos!: Puesto[]
+  public roles!: Rol[]
+  opcionSlect = ""
+  opcionrol = ""
+  puesto_id = 0
+  rol_id = 0
+  sueldo = 0
   constructor(
     public dialogRef: MatDialogRef<EditEmpleadoDialog>,
-    @Inject(MAT_DIALOG_DATA) public data: Empleado,
-    private fb: FormBuilder
+    @Inject(MAT_DIALOG_DATA) public data: any,
+    private datepipe: DatePipe,
+    private fb: FormBuilder,
+    private empleadosrv: EmpleadosService
   ) {
+    this.empleado = data.empleado;
+    this.puestos = data.puestos;
+    this.roles = data.roles;
+    this.sueldo = this.empleado.sueldo
+    this.opcionSlect = this.puestos.find(puesto => puesto.descripcion === this.empleado.puesto)?.descripcion || '';
+    this.puesto_id = this.puestos.find(puesto => puesto.descripcion === this.empleado.puesto)?.idpuesto || 0;
+    this.opcionrol = this.roles.find(rol => rol.idrol === this.empleado.rol_id)?.descripcion || '';
+    this.rol_id = this.roles.find(rol => rol.idrol === this.empleado.rol_id)?.idrol || 0;
     this.myForm = this.createMyForm();
-    this.datos()
-  }
-
-  datos() {
-    this.nombres = this.data.nombre + " " + this.data.apellido + " " + this.data.apellido_2
+    this.myForm.controls['nombre'].disable();
+    this.myForm.controls['cedula'].disable();
+    this.myForm.controls['fecha_nacimiento'].disable();
+    this.myForm.controls['fecha_ingreso'].disable();
+    this.myForm.controls['usuario'].disable();
   }
 
   public get f(): any {
@@ -253,21 +312,78 @@ export class EditEmpleadoDialog {
 
   private createMyForm(): FormGroup {
     return this.fb.group({
-      cedula: ['', [Validators.required, Validators.minLength(10), Validators.maxLength(10), Validators.pattern('[0-9]*')]],
-      direccion: ['', [Validators.required, Validators.maxLength(200)]],
-      telefono: ['', [Validators.required, Validators.minLength(10), Validators.maxLength(10), Validators.pattern('[0-9]*')]],
-      correo: ['', [Validators.required, Validators.maxLength(200), Validators.email]],
-      sueldo: ['', [Validators.required, Validators.min(0)]],
-      puesto: [''],
-      fecha_nacimient: ['', [Validators.required]],
-      fecha_ingres: ['', [Validators.required]],
-      usuario: ['', [Validators.required, Validators.maxLength(45)]],
-      rol: [''],
+      nombre: [this.empleado.nombre + ' ' + this.empleado.apellido + ' ' + this.empleado.apellido_2],
+      fecha_nacimiento: [this.formatofecha(this.empleado.fecha_nacimiento)],
+      cedula: [this.empleado.cedula],
+      direccion: [this.empleado.direccion, [Validators.required, Validators.maxLength(200)]],
+      telefono: [this.empleado.telefono, [Validators.required, Validators.minLength(10), Validators.maxLength(10), Validators.pattern('[0-9]*')]],
+      correo: [this.empleado.correo, [Validators.required, Validators.maxLength(200), Validators.email]],
+      sueldo: [this.sueldo, [Validators.required, Validators.min(0)]],
+      puesto: [this.opcionSlect],
+      puesto_id: [this.puesto_id],
+      fecha_ingreso: [this.formatofecha(this.empleado.fecha_contratacion)],
+      usuario: [this.empleado.usuario],
+      rol: [this.opcionrol],
+      rol_id: [this.rol_id]
     });
   }
 
   submitFormulario() {
+    if (this.myForm.invalid) {
+      console.log("Formulario inválido")
+      Object.values(this.myForm.controls).forEach(control => {
+        control.markAllAsTouched();
+      });
+      return;
+    }
+    const idempleado = this.empleado.idempleado;
+    this.empleado = this.myForm.value;
+    this.empleado.puesto_id = this.puesto_id;
+    this.empleado.rol_id = this.rol_id;
+    this.empleado.idempleado = idempleado
+    // console.log(this.empleado)
+    this.updateEmployee(this.empleado);
+  }
 
+  updateEmployee(empleado: Empleado) {
+    this.empleadosrv.putEmpleado(empleado).subscribe({
+      next: (mensaje) => {
+        console.log("Ok de API: " + mensaje.message)
+        Swal.fire({
+          title: 'Datos actualizados correctamente',
+          icon: 'success',
+          confirmButtonText: 'Ok'
+        });
+        this.dialogRef.close();
+      },
+      error: (response: any) => {
+        var msg = response["error"]["message"]
+        Swal.fire({
+          title: 'Error al actualizar',
+          text: 'Error: ' + msg.toUpperCase(),
+          icon: 'error',
+          confirmButtonText: 'Ok'
+        });
+        console.log("mensaje error api: " + msg);
+        this.dialogRef.close();
+      }
+    })
+  }
+
+  capturar() {
+    this.sueldo = this.puestos.find(puesto => puesto.descripcion === this.f.puesto.value)!.sueldo;
+    this.puesto_id = this.puestos.find(puesto => puesto.descripcion === this.f.puesto.value)!.idpuesto;
+    this.f.sueldo.value = this.sueldo;
+    this.f.puesto_id.value = this.puesto_id
+  }
+
+  capturar_rol() {
+    this.rol_id = this.roles.find(rol => rol.descripcion === this.f.rol.value)?.idrol || 0;
+    this.f.rol_id.value = this.rol_id;
+  }
+
+  formatofecha(fecha: Date) {
+    return this.datepipe.transform(fecha, 'dd/MMM/yyyy');
   }
 
   onNoClick(): void {
