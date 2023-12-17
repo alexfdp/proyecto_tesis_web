@@ -70,6 +70,7 @@ export class MenuComponent {
   }
 
   logout() {
-
+    localStorage.removeItem('token');
+    this.routerprd.navigateByUrl("/login")
   }
 }

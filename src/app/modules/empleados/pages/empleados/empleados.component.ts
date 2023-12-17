@@ -205,10 +205,12 @@ export class AddEmpleadoDialog {
     this.opcionSlect = this.puestos.find(puesto => puesto.descripcion === this.f.puesto.value)!.descripcion;
     this.sueldo = this.puestos.find(puesto => puesto.descripcion === this.f.puesto.value)!.sueldo;
     this.f.sueldo.value = this.sueldo;
+    this.myForm.controls['sueldo'].setValue(this.sueldo);
+    // this.myForm.controls['sueldo'].add;
   }
 
   submitFormulario() {
-    console.log(this.myForm.controls['usuario'].errors)
+    console.log(this.myForm.controls['sueldo'].errors)
     if (this.myForm.invalid) {
       console.log("Formulario inválido")
       Object.values(this.myForm.controls).forEach(control => {
@@ -223,7 +225,6 @@ export class AddEmpleadoDialog {
       uppercase: true,
       symbols: true
     });
-
     this.empleado = this.myForm.value
     this.empleado.fecha_contratacion = this.miDatePipe.transform(this.empleado.fecha_ingres, 'yyyy-MM-dd HH:mm:ss');
     this.empleado.fecha_nacimiento = this.miDatePipe.transform(this.empleado.fecha_nacimient, 'yyyy-MM-dd HH:mm:ss');
@@ -374,6 +375,7 @@ export class EditEmpleadoDialog {
     this.sueldo = this.puestos.find(puesto => puesto.descripcion === this.f.puesto.value)!.sueldo;
     this.puesto_id = this.puestos.find(puesto => puesto.descripcion === this.f.puesto.value)!.idpuesto;
     this.f.sueldo.value = this.sueldo;
+    this.myForm.controls['sueldo'].setValue(this.sueldo);
     this.f.puesto_id.value = this.puesto_id
   }
 
