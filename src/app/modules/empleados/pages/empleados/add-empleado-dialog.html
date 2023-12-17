@@ -90,8 +90,11 @@
             <label class="form-label">Usuario</label>
             <input type="text" [class.is-invalid]="f.usuario.errors && f.usuario.touched || !validauser"
                 (keyup)="applyFilter($event)" class="form-control" formControlName="usuario" id="usuario" required>
-            <div class="invalid-feedback">
+            <div class="invalid-feedback" *ngIf="validauser">
                 Ingrese un usuario válido.
+            </div>
+            <div class="invalid-feedback" *ngIf="!validauser">
+                El usuario ya se encuentra en uso
             </div>
         </div>
         <div class="col-md-4">

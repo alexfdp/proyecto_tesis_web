@@ -210,8 +210,8 @@ export class AddEmpleadoDialog {
   }
 
   submitFormulario() {
-    console.log(this.myForm.controls['sueldo'].errors)
-    if (this.myForm.invalid) {
+    console.log(this.myForm.controls['usuario'].errors)
+    if (this.myForm.invalid || !this.validauser) {
       console.log("Formulario inválido")
       Object.values(this.myForm.controls).forEach(control => {
         control.markAllAsTouched();

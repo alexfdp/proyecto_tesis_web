@@ -1,13 +1,17 @@
 <div>
     <div class="tabla-container container">
-        <div fxLayout="row" fxLayoutAlign="space-between center" class="clase_filtro_btn">
-            <div class="form-floating mb-3 input-search">
-                <input type="text" class="form-control" matInput (keyup)="applyFilter($event)" #input placeholder="l">
-                <label for="floatingInput">Filtro</label>
+        <div class="prueba">
+            <div fxLayout="row" fxLayoutAlign="space-between center" class="clase_filtro_btn">
+                <div class="form-floating mb-3 input-search">
+                    <input type="text" class="form-control" matInput (keyup)="applyFilter($event)" #input
+                        placeholder="l">
+                    <label for="floatingInput">Filtro</label>
+                </div>
+                <button type="button" class="btn btn-success" style="margin-bottom: 8px;" (click)="openDialog()">Agregar
+                    Empleado</button>
             </div>
-            <button type="button" class="btn btn-success" style="margin-bottom: 8px;" (click)="openDialog()">Agregar
-                Empleado</button>
         </div>
+
 
         <section class="example-container" tabindex="0">
             <table mat-table [dataSource]="empleados" matSort class="mat-elevation-z8 demo-table">
