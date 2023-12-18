@@ -7,6 +7,7 @@ import { Puesto } from 'src/app/models/Puesto';
 import { Rol } from 'src/app/models/Rol';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment.development';
+import { Usuario } from 'src/app/models/Usuario';
 
 @Injectable({
   providedIn: 'root'
@@ -17,6 +18,8 @@ export class EmpleadosService {
   private getvaluser = "empleados/validuser"
   private getpuestos = "public/puestos"
   private getroles = "public/roles"
+
+  private usuarios = "usuario"
 
   constructor(private http: HttpClient) { }
 
@@ -48,5 +51,9 @@ export class EmpleadosService {
 
   public putEstado(dataEmployee:Empleado): Observable<any> {
     return this.http.put(`${environment.apiUrl}/${this.putEstadoEmpleado}`, dataEmployee)
+  }
+
+  public getAllUsuarios() {
+    return this.http.get<Usuario[]>(`${environment.apiUrl}/${this.usuarios}`);
   }
 }

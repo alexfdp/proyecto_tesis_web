@@ -1,4 +1,11 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
+import { Usuario } from 'src/app/models/Usuario';
+import { EmpleadosService } from '../../services/empleados.service';
+import { MatTableDataSource } from '@angular/material/table';
+import { SharedModule } from 'src/app/shared/shared/shared.module';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatSort } from '@angular/material/sort';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-perfiles',
@@ -6,5 +13,40 @@ import { Component } from '@angular/core';
   styleUrls: ['./perfiles.component.scss']
 })
 export class PerfilesComponent {
+  usuarios!: MatTableDataSource<Usuario>
+  usuarioSelect!: Usuario
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
+  @ViewChild(MatSort) sort!: MatSort;
+  displayedColumns: string[] = ['id', 'nombre', 'usuario', 'estado', 'fechareg', 'acciones'];
 
+  constructor(private empleadoSrv: EmpleadosService, private datepipe: DatePipe) {
+    this.consulatUsuarios()
+  }
+
+  consulatUsuarios() {
+    this.empleadoSrv.getAllUsuarios().subscribe({
+      next: (data) => {
+        this.usuarios = new MatTableDataSource(data);
+        this.usuarios.sort = this.sort;
+        this.usuarios.paginator = this.paginator;
+        console.log(data);
+      },
+      error: (response) => {
+        var msg = response["error"]["message"]
+        console.log("mensaje api: " + msg);
+      }
+    })
+  }
+
+  formatofecha(fecha: Date) {
+    return this.datepipe.transform(fecha, 'dd/MMM/yyyy');
+  }
+  applyFilter(event: Event) {
+    // const filterValue = (event.target as HTMLInputElement).value;
+    // this.empleados.filter = filterValue.trim().toLowerCase();
+
+    // if (this.empleados.paginator) {
+    //   this.empleados.paginator.firstPage();
+    // }
+  }
 }
