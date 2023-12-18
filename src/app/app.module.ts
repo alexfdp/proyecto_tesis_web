@@ -10,7 +10,9 @@ import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { authGuard } from './guards/auth.guard';
 import { DatePipe } from '@angular/common';
 import { AuthenticationInterceptor } from './shared/services/interceptor';
-
+import { NgIconsModule } from '@ng-icons/core';
+import { featherAirplay } from '@ng-icons/feather-icons';
+import { heroUsers } from '@ng-icons/heroicons/outline';
 import localeEs from '@angular/common/locales/es';
 import { registerLocaleData } from '@angular/common';
 registerLocaleData(localeEs, 'es');
@@ -26,7 +28,8 @@ registerLocaleData(localeEs, 'es');
     BrowserAnimationsModule,
     NgbModule,
     SharedModule,
-    HttpClientModule
+    HttpClientModule,
+    NgIconsModule.withIcons({ featherAirplay, heroUsers }),
   ],
   providers: [
     authGuard,

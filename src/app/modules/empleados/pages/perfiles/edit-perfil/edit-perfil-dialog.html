@@ -1,0 +1,41 @@
+<div mat-dialog-content class="texto">
+    <h5 class="card-title">Registrar Empleado</h5>
+    <mat-divider></mat-divider>
+    <br>
+    <form class="row g-3 needs-validation" [formGroup]="myForm" (ngSubmit)="submitFormulario()" validate>
+        <div class="col-md-4">
+            <label class="form-label texto">Nombre</label>
+            <input type="text" class="form-control" formControlName="nombre" id="nombre">
+        </div>
+        <div class="col-md-4">
+            <label class="form-label">Usuario</label>
+            <input type="text" [class.is-invalid]="f.usuario.errors && f.usuario.touched || !validauser"
+                (keyup)="applyFilter($event)" class="form-control" formControlName="usuario" id="usuario" required>
+            <div class="invalid-feedback" *ngIf="validauser">
+                Ingrese un usuario válido.
+            </div>
+            <div class="invalid-feedback" *ngIf="!validauser">
+                El usuario ya se encuentra en uso
+            </div>
+        </div>
+        <div class="col-md-4">
+            <label class="form-label">Nivel de acceso</label>
+            <select id="rol" class="form-select" formControlName="rol" (change)="capturar_rol()">
+                <option value="{{dato.descripcion}}" *ngFor="let dato of roles"
+                    [attr.selected]="dato.descripcion === opcionrol ? true : null">
+                    {{dato.descripcion}}
+                </option>
+            </select>
+        </div>
+        <div class="col-md-3">
+            <label class="form-label">Fecha de Registro</label>
+            <input type="text" class="form-control" placeholder="dd/mm/yyyy" formControlName="fecha_registro">
+        </div>
+        <div class="col-12">
+            <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                <button class="btn btn-danger me-md-2" (click)="onNoClick()" type="button">Cancelar</button>
+                <button class="btn btn-primary" type="submit">Registrar</button>
+            </div>
+        </div>
+    </form>
+</div>

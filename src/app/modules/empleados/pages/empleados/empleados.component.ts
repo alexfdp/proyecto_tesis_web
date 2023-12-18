@@ -40,8 +40,6 @@ export class EmpleadosComponent {
       next: ([puestos, roles]) => {
         this.puestos = puestos;
         this.roles = roles;
-        // this.opcionSlect = this.puestos.find(puesto => puesto.descripcion === this.data.puesto)?.descripcion || '';
-        console.log('leyó todos los puestos y roles');
       },
       error: (response) => {
         var msg = response['error']['message'];
@@ -87,7 +85,6 @@ export class EmpleadosComponent {
       data: { puestos: this.puestos, roles: this.roles }
     });
     dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed: ' + result);
       this.consultarAllEmpleados();
     });
   }
@@ -210,7 +207,6 @@ export class AddEmpleadoDialog {
   }
 
   submitFormulario() {
-    console.log(this.myForm.controls['usuario'].errors)
     if (this.myForm.invalid || !this.validauser) {
       console.log("Formulario inválido")
       Object.values(this.myForm.controls).forEach(control => {
@@ -342,7 +338,6 @@ export class EditEmpleadoDialog {
     this.empleado.puesto_id = this.puesto_id;
     this.empleado.rol_id = this.rol_id;
     this.empleado.idempleado = idempleado
-    // console.log(this.empleado)
     this.updateEmployee(this.empleado);
   }
 
