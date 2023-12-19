@@ -16,6 +16,10 @@
     width: 90%;
 }
 
+.clase_filtro_btn_msg {
+    flex-wrap: wrap-reverse;
+}
+
 .example-container {
     max-width: 100%;
     max-height: 100%;
@@ -100,7 +104,7 @@ section {
     color: #381fd6;
 }
 
-.infor{
+.infor {
     color: gray;
 }
 
@@ -136,10 +140,27 @@ section {
     .clase_filtro_btn {
         width: 100%;
     }
+
+    .clase_filtro_btn_msg {
+        flex-wrap: wrap-reverse;
+    }
 }
 
 //tables
-@media only screen and (min-width:767px) and (max-width:991px) {}
+@media only screen and (min-width:767px) and (max-width:991px) {
+    .clase_filtro_btn_msg {
+        flex-wrap: wrap-reverse;
+        width: auto;
+    }
+
+    .col-md-3.botones {
+        width: 100%;
+    }
+
+    .col-md-9.contrasena {
+        width: 100%;
+    }
+}
 
 //laptops
 @media only screen and (min-width:992px) and (max-width:1023px) {}

@@ -14,6 +14,5 @@ export interface Empleado {
     puesto_id:number
     fecha_registro: Date
     fecha_contratacion: Date
-    rol_id: number
     usuario: string
 }

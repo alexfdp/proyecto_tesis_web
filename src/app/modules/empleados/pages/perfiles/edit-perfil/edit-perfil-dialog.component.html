@@ -32,10 +32,15 @@
             <label class="form-label">Fecha de Registro</label>
             <input type="text" class="form-control" placeholder="dd/mm/yyyy" formControlName="fecha_registro">
         </div>
-        <div class="col-12">
-            <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-                <button class="btn btn-danger me-md-2" (click)="onNoClick()" type="button">Cancelar</button>
-                <button class="btn btn-primary" type="submit">Registrar</button>
+        <div class="row g-3 clase_filtro_btn_msg">
+            <div class="col-md-9 contrasena">
+                *La contraseña será generada automáticamente, será mostrada en pantalla y enviada al correo registrado
+            </div>
+            <div class="col-md-3 botones">
+                <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                    <button class="btn btn-danger me-md-2" (click)="onNoClick()" type="button">Cancelar</button>
+                    <button class="btn btn-primary" type="submit">Registrar</button>
+                </div>
             </div>
         </div>
     </form>
