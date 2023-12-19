@@ -30,16 +30,11 @@ export class EmpleadosComponent {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
   public puestos!: Puesto[]
-  public roles!: Rol[]
 
   private consultarAllPuestosRoles() {
-    forkJoin([
-      this.empleadosrv.getPuestos(),
-      this.empleadosrv.getRoles()
-    ]).subscribe({
-      next: ([puestos, roles]) => {
-        this.puestos = puestos;
-        this.roles = roles;
+    this.empleadosrv.getPuestos().subscribe({
+      next: (data) => {
+        this.puestos = data;
       },
       error: (response) => {
         var msg = response['error']['message'];
@@ -82,7 +77,7 @@ export class EmpleadosComponent {
 
   openDialog(): void {
     const dialogRef = this.dialog.open(AddEmpleadoDialog, {
-      data: { puestos: this.puestos, roles: this.roles }
+      data: { puestos: this.puestos }
     });
     dialogRef.afterClosed().subscribe(result => {
       this.consultarAllEmpleados();
@@ -91,7 +86,7 @@ export class EmpleadosComponent {
 
   openeditdialog(): void {
     const dialogRef = this.dialog.open(EditEmpleadoDialog, {
-      data: { empleado: this.empleadoSelect, puestos: this.puestos, roles: this.roles }
+      data: { empleado: this.empleadoSelect, puestos: this.puestos }
     });
   }
 
@@ -133,11 +128,9 @@ export class EmpleadosComponent {
 export class AddEmpleadoDialog {
   public myForm!: FormGroup;
   public puestos!: Puesto[]
-  public roles!: Rol[]
   validauser = true;
   private empleado!: EmpleadoDAO
   opcionSlect = ""
-  opcionrol = ""
   sueldo = 0
   fechamac !: Date
   fechamin !: Date
@@ -146,10 +139,8 @@ export class AddEmpleadoDialog {
     private empleadosrv: EmpleadosService, private miDatePipe: DatePipe,
     @Inject(MAT_DIALOG_DATA) public data: any) {
     this.puestos = data.puestos;
-    this.roles = data.roles;
     this.sueldo = this.puestos[0].sueldo
     this.opcionSlect = this.puestos[0].descripcion;
-    this.opcionrol = this.roles[0].descripcion;
     this.fechamac = moment().subtract(59, 'year').toDate();
     this.fechamin = moment().subtract(18, 'year').toDate();
     this.myForm = this.createMyForm();
@@ -183,7 +174,6 @@ export class AddEmpleadoDialog {
       fecha_nacimient: ['', [Validators.required]],
       fecha_ingres: ['', [Validators.required]],
       usuario: ['', [Validators.required, Validators.maxLength(45), Validators.pattern('[a-zA-ZñÑ0-9_]*')]],
-      rol: [this.opcionrol],
     });
   }
 
@@ -225,7 +215,6 @@ export class AddEmpleadoDialog {
     this.empleado.fecha_contratacion = this.miDatePipe.transform(this.empleado.fecha_ingres, 'yyyy-MM-dd HH:mm:ss');
     this.empleado.fecha_nacimiento = this.miDatePipe.transform(this.empleado.fecha_nacimient, 'yyyy-MM-dd HH:mm:ss');
     this.empleado.puesto_id = this.puestos.find(puesto => puesto.descripcion === this.f.puesto.value)!.idpuesto;
-    this.empleado.rol_id = this.roles.find(rol => rol.descripcion === this.f.rol.value)!.idrol
     this.empleado.contrasena = password
     this.registro(this.empleado)
   }
@@ -274,12 +263,10 @@ export class EditEmpleadoDialog {
   public myForm!: FormGroup;
   empleado!: Empleado
   public puestos!: Puesto[]
-  public roles!: Rol[]
   opcionSlect = ""
-  opcionrol = ""
   puesto_id = 0
-  rol_id = 0
   sueldo = 0
+
   constructor(
     public dialogRef: MatDialogRef<EditEmpleadoDialog>,
     @Inject(MAT_DIALOG_DATA) public data: any,
@@ -289,12 +276,9 @@ export class EditEmpleadoDialog {
   ) {
     this.empleado = data.empleado;
     this.puestos = data.puestos;
-    this.roles = data.roles;
     this.sueldo = this.empleado.sueldo
     this.opcionSlect = this.puestos.find(puesto => puesto.descripcion === this.empleado.puesto)?.descripcion || '';
     this.puesto_id = this.puestos.find(puesto => puesto.descripcion === this.empleado.puesto)?.idpuesto || 0;
-    this.opcionrol = this.roles.find(rol => rol.idrol === this.empleado.rol_id)?.descripcion || '';
-    this.rol_id = this.roles.find(rol => rol.idrol === this.empleado.rol_id)?.idrol || 0;
     this.myForm = this.createMyForm();
     this.myForm.controls['nombre'].disable();
     this.myForm.controls['cedula'].disable();
@@ -320,8 +304,6 @@ export class EditEmpleadoDialog {
       puesto_id: [this.puesto_id],
       fecha_ingreso: [this.formatofecha(this.empleado.fecha_contratacion)],
       usuario: [this.empleado.usuario],
-      rol: [this.opcionrol],
-      rol_id: [this.rol_id]
     });
   }
 
@@ -336,7 +318,6 @@ export class EditEmpleadoDialog {
     const idempleado = this.empleado.idempleado;
     this.empleado = this.myForm.value;
     this.empleado.puesto_id = this.puesto_id;
-    this.empleado.rol_id = this.rol_id;
     this.empleado.idempleado = idempleado
     this.updateEmployee(this.empleado);
   }
@@ -372,11 +353,6 @@ export class EditEmpleadoDialog {
     this.f.sueldo.value = this.sueldo;
     this.myForm.controls['sueldo'].setValue(this.sueldo);
     this.f.puesto_id.value = this.puesto_id
-  }
-
-  capturar_rol() {
-    this.rol_id = this.roles.find(rol => rol.descripcion === this.f.rol.value)?.idrol || 0;
-    this.f.rol_id.value = this.rol_id;
   }
 
   formatofecha(fecha: Date) {

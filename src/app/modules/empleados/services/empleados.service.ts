@@ -49,11 +49,15 @@ export class EmpleadosService {
     return this.http.post<any>(`${environment.apiUrl}/${this.getempleados}`, dataEmployee);
   }
 
-  public putEstado(dataEmployee:Empleado): Observable<any> {
+  public putEstado(dataEmployee: Empleado): Observable<any> {
     return this.http.put(`${environment.apiUrl}/${this.putEstadoEmpleado}`, dataEmployee)
   }
 
   public getAllUsuarios() {
     return this.http.get<Usuario[]>(`${environment.apiUrl}/${this.usuarios}`);
+  }
+
+  public putUsuario(user: Usuario): Observable<any> {
+    return this.http.put(`${environment.apiUrl}/${this.usuarios}`, user)
   }
 }

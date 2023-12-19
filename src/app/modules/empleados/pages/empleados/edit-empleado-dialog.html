@@ -70,15 +70,6 @@
                 Ingrese un usuario válido.
             </div>
         </div>
-        <div class="col-md-3">
-            <label class="form-label">Nivel de acceso</label>
-            <select id="rol" class="form-select" formControlName="rol" (change)="capturar_rol()">
-                <option value="{{dato.descripcion}}" *ngFor="let dato of roles"
-                    [attr.selected]="dato.descripcion === opcionrol ? true : null">
-                    {{dato.descripcion}}
-                </option>
-            </select>
-        </div>
         <div class="col-12">
             <div class="d-grid gap-2 d-md-flex justify-content-md-end">
                 <button class="btn btn-danger me-md-2" (click)="onNoClick()" type="button">Cancelar</button>

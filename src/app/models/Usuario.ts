@@ -6,5 +6,5 @@ export interface Usuario {
     usuario: string
     estado: number
     contrasena: string
-    fecha_registro: number
+    fecha_registro: Date
 }

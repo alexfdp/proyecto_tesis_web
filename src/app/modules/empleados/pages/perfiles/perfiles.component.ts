@@ -6,7 +6,7 @@ import { SharedModule } from 'src/app/shared/shared/shared.module';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { DatePipe } from '@angular/common';
-import { EditPerfilDialog } from './edit-perfil/edit-perfil-dialog';
+import { EditPerfilDialog } from './edit-perfil/edit-perfil-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
 import { Rol } from 'src/app/models/Rol';
 
