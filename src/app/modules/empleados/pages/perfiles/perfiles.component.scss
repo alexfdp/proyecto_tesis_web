@@ -143,11 +143,41 @@ section {
 
     .clase_filtro_btn_msg {
         flex-wrap: wrap-reverse;
+        padding-right: 0px;
+    }
+
+    .col-md-3.botones {
+        width: 100%;
+        padding-right: 0px;
+    }
+
+    .col-md-9.contrasena {
+        width: 100%;
+        padding-right: 0px;
     }
 }
 
 //tables
 @media only screen and (min-width:767px) and (max-width:991px) {
+    .clase_filtro_btn_msg {
+        flex-wrap: wrap-reverse;
+        width: auto;
+        padding-right: 0px;
+    }
+
+    .col-md-3.botones {
+        width: 100%;
+        padding-right: 0px;
+    }
+
+    .col-md-9.contrasena {
+        width: 100%;
+        padding-right: 0px;
+    }
+}
+
+//laptops
+@media only screen and (min-width:992px) and (max-width:1023px) {
     .clase_filtro_btn_msg {
         flex-wrap: wrap-reverse;
         width: auto;
@@ -162,8 +192,5 @@ section {
     }
 }
 
-//laptops
-@media only screen and (min-width:992px) and (max-width:1023px) {}
-
 //desktop
-@media only screen and (min-width:1024px) {}
+@media only screen and (min-width:1100px) {}

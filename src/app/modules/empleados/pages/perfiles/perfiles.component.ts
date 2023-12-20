@@ -2,7 +2,6 @@ import { Component, ViewChild } from '@angular/core';
 import { Usuario } from 'src/app/models/Usuario';
 import { EmpleadosService } from '../../services/empleados.service';
 import { MatTableDataSource } from '@angular/material/table';
-import { SharedModule } from 'src/app/shared/shared/shared.module';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { DatePipe } from '@angular/common';

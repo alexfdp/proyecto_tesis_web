@@ -6,11 +6,13 @@ import { LoginComponent } from './pages/login/login.component';
 import { SharedModule } from 'src/app/shared/shared/shared.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ForgotPasswordComponent } from './pages/forgot-password/forgot-password.component';
+import { CambiarClaveComponent } from './pages/cambiar-clave/cambiar-clave.component';
 
 @NgModule({
   declarations: [
     LoginComponent,
-    ForgotPasswordComponent
+    ForgotPasswordComponent,
+    CambiarClaveComponent
   ],
   imports: [
     CommonModule,

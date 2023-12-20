@@ -1,8 +1,5 @@
-import { Component, HostBinding, Input } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
-import { MatDrawer, MatDrawerMode } from '@angular/material/sidenav';
-import { ViewChild } from '@angular/core'
-import { UserData } from 'src/app/models/UserData';
+import { Component } from '@angular/core';
+import { MatDrawerMode } from '@angular/material/sidenav';
 import { MenuValService } from './service/menu-val.service';
 import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
@@ -52,7 +49,6 @@ export class MenuComponent {
         if (data.apellido_2) {
           this.nombre += data.apellido_2
         }
-        // console.log(data);
       },
       error: (response: any) => {
         var msg = response["error"]["message"]
@@ -63,14 +59,14 @@ export class MenuComponent {
           icon: 'error',
           confirmButtonText: 'Ok'
         });
-        localStorage.removeItem("token");
-        this.routerprd.navigateByUrl("/login")
+        this.logout()
       }
     })
   }
 
   logout() {
     localStorage.removeItem('token');
+    localStorage.removeItem('estate');
     this.routerprd.navigateByUrl("/login")
   }
 }

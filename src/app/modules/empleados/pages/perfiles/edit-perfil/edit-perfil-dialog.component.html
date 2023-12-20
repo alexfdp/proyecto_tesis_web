@@ -21,12 +21,15 @@
         <div class="col-md-3">
             <label class="form-label">Nivel de acceso</label>
             <select id="rol" class="form-select" formControlName="rol" (change)="capturar_rol()"
-                [class.is-invalid]="f.usuario.errors && f.usuario.touched || !valRol">
+                [class.is-invalid]="f.rol.errors && f.rol.touched || !valRol">
                 <option value="{{dato.descripcion}}" *ngFor="let dato of roles"
                     [attr.selected]="dato.descripcion === opcionrol ? true : null">
                     {{dato.descripcion}}
                 </option>
             </select>
+            <div class="invalid-feedback">
+                Escoja una opción
+            </div>
         </div>
         <div class="col-md-3">
             <label class="form-label">Fecha de Registro</label>
@@ -39,7 +42,7 @@
             <div class="col-md-3 botones">
                 <div class="d-grid gap-2 d-md-flex justify-content-md-end">
                     <button class="btn btn-danger me-md-2" (click)="onNoClick()" type="button">Cancelar</button>
-                    <button class="btn btn-primary" type="submit">Registrar</button>
+                    <button class="btn btn-primary" type="submit">Actualizar</button>
                 </div>
             </div>
         </div>

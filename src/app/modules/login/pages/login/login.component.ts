@@ -23,12 +23,20 @@ export class LoginComponent {
     this.routerprd.navigateByUrl("/home");
   }
 
+  redirecChangePass() {
+    this.routerprd.navigateByUrl("/change_password");
+  }
+
   login(login: Auth) {
     this.loginAuth.autenticar(login).subscribe({
       next: (authTokenD) => {
-        sessionStorage.setItem('token', authTokenD.token);
+        localStorage.setItem('estate', "" + authTokenD.estado);
         localStorage.setItem('token', authTokenD.token);
-        this.redirecMenu();
+        if (authTokenD.estado === 1) {
+          this.redirecMenu();
+        } else {
+          this.redirecChangePass()
+        }
       },
       error: (response: any) => {
         var msg = response["error"]["message"]
@@ -62,7 +70,15 @@ export class LoginComponent {
 
   sesion() {
     if (localStorage.getItem("token")) {
-      this.routerprd.navigateByUrl("/home")
+      if (localStorage.getItem("estate") === "1") {
+        console.log("entro if 1");
+        this.redirecMenu();
+      } else {
+        if (localStorage.getItem("estate") === "2") {
+          console.log("entro if 2");
+          this.redirecChangePass()
+        }
+      }
     }
   }
 

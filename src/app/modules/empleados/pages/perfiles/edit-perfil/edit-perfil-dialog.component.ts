@@ -1,4 +1,4 @@
-import { Component, Inject, ViewChild } from '@angular/core';
+import { Component, Inject } from '@angular/core';
 import { CommonModule, DatePipe } from "@angular/common";
 import generator from 'generate-password-ts';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from "@angular/forms";
@@ -27,6 +27,7 @@ export class EditPerfilDialog {
     user = ''
     roles!: Rol[]
     rol_id = 0
+    rol_ini = 0;
     opcionrol = ""
     valRol = false;
     valcambio = false;
@@ -40,6 +41,7 @@ export class EditPerfilDialog {
         this.user = this.usuario.usuario;
         this.opcionrol = this.roles.find(rol => rol.idrol === this.usuario.rol_id)?.descripcion || '';
         this.rol_id = this.roles.find(rol => rol.idrol === this.usuario.rol_id)?.idrol || 0;
+        this.rol_ini = this.rol_id
         if (this.rol_id != 0) {
             this.valRol = true
         }
@@ -94,19 +96,45 @@ export class EditPerfilDialog {
             Object.values(this.myForm.controls).forEach(control => {
                 control.markAllAsTouched();
             });
+            Swal.fire({
+                title: 'Formulario inválido',
+                icon: 'warning',
+                text: 'LLene todos los campos correctamente',
+                confirmButtonText: 'Ok'
+            });
             return;
         }
+        if (this.user != this.myForm.get('usuario')!.value || this.rol_ini != this.myForm.get('rol_id')!.value) {
+            const password = generator.generate({
+                length: 10,
+                numbers: true,
+                uppercase: true,
+                symbols: '_-.'
+            });
+            this.usuario = this.myForm.value;
+            this.usuario.contrasena = password;
+            Swal.fire({
+                title: "¿Desea actualizar los datos?",
+                showCancelButton: true,
+                text: 'Tenga en cuenta que la contraseña será reestablecida y deberá ser actualizada una vez se inicie sesión.',
+                icon: 'question',
+                confirmButtonText: "Continuar",
+                cancelButtonText: `Cancelar`
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    this.updateUser(this.usuario);
+                }
+            });
 
-        const password = generator.generate({
-            length: 10,
-            numbers: true,
-            uppercase: true,
-            symbols: '_-.'
-        });
+        } else {
+            Swal.fire({
+                title: 'No hay cambios detectados',
+                icon: 'warning',
+                confirmButtonText: 'Ok'
+            });
+            this.dialogRef.close();
+        }
 
-        this.usuario = this.myForm.value;
-        this.usuario.contrasena = password;
-        this.updateUser(this.usuario);
     }
 
     updateUser(user: Usuario) {
