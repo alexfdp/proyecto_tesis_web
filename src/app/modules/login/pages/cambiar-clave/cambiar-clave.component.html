@@ -8,21 +8,39 @@
                         <br>
                         <img src="assets/images/ICEBERG.svg" alt="" class="logo_img">
                     </div>
-
-                    <form class="formulario__login">
+                    <form class="formulario__login" [formGroup]="myForm" (ngSubmit)="submitFormulario()">
                         <h2 class="titulo_servicio">Cambiar Clave</h2>
-                        <div class="form-floating mb-3">
-                            <input type="email" class="form-control inputRecuperar" id="email_forgot"
-                                placeholder="name@example.com">
-                            <label for="floatingInput" style="font-size: 14px;"> <i class="bi bi-envelope-fill"></i>
-                                &nbsp;Ingrese su correo</label>
-                            <p class="mt-2 d-none" id="pOcultoValidacion"
-                                style="color: rgb(236, 35, 35); font-size: 14.5px;">Tu
-                                correo electrónico debe ser: name@example.com</p>
+                        <div class="form-floating position-relative">
+                            <input formControlName="contrasena_1" type="password" id="contrasena_1" #inputPass
+                                [class.is-invalid]="f.contrasena_1.errors && f.contrasena_1.touched || !val"
+                                class="form-control" placeholder="Password">
+                            <label for="floatingPassword" style="font-size: 14px;"><i class="bi bi-lock-fill"></i>
+                                &nbsp;Nueva contraseña.</label>
+                            <div id="validationServer03Feedback" class="invalid-feedback">
+                                Por favor ingrese su contraseña.
+                            </div>
+                            <div class="position-absolute top-50 end-0 translate-middle-y">
+                                <button (click)="cambioPass()" type="button" class="configuracion-boton-icon">
+                                    <ng-icon class="ngiconPru" name="{{iconName}}"></ng-icon></button>
+                            </div>
                         </div>
-                        <button>Guardar</button>
+                        <br>
+                        <div class="form-floating position-relative">
+                            <input formControlName="contrasena" type="password" id="contrasena" #inputPass1
+                                [class.is-invalid]="f.contrasena.errors && f.contrasena.touched || !val"
+                                class="form-control" placeholder="Password" (keyup)="cambioPassEvent($event)">
+                            <label for="floatingPassword" style="font-size: 14px;"><i class="bi bi-lock-fill"></i>
+                                &nbsp;Confirme nueva contraseña.</label>
+                            <div class="position-absolute top-50 end-0 translate-middle-y">
+                                <button (click)="cambioPass_2()" type="button" class="configuracion-boton-icon">
+                                    <ng-icon class="ngiconPru" name="{{iconName2}}"></ng-icon></button>
+                            </div>
+                            <div id="validationServer03Feedback" class="invalid-feedback">
+                                Por favor ingrese su contraseña.
+                            </div>
+                        </div>
+                        <button class="primerbtn" type="submit">Guardar</button>
                         <button (click)="logout()">Cerrar Sesión</button>
-                        <div class="errorRecuperar"></div>
                     </form>
                 </div>
             </div>

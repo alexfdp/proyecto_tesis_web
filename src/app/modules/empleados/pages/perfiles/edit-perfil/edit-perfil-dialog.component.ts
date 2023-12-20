@@ -125,16 +125,14 @@ export class EditPerfilDialog {
                     this.updateUser(this.usuario);
                 }
             });
-
         } else {
+            this.dialogRef.close();
             Swal.fire({
                 title: 'No hay cambios detectados',
                 icon: 'warning',
                 confirmButtonText: 'Ok'
             });
-            this.dialogRef.close();
         }
-
     }
 
     updateUser(user: Usuario) {

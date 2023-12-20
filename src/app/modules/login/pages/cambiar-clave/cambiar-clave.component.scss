@@ -73,7 +73,7 @@ main {
 .caja_trasera form button {
     width: 100%;
     padding: 10px 40px;
-    margin-top: 30px;
+    margin-top: 10px;
     border: none;
     font-size: 14px;
     background: rgb(55, 104, 167);
@@ -83,6 +83,10 @@ main {
     outline: none;
     // text-align: right;
     border-radius: 5px;
+}
+
+.caja_trasera form button.primerbtn {
+    margin-top: 25px;
 }
 
 .caja_trasera form .link_forgot {
@@ -112,9 +116,18 @@ main {
 .configuracion-boton-icon {
     border: none;
     background-color: transparent;
-    font-size: 18px !important;
+    font-size: 20px !important;
     color: black !important;
     margin-top: 0 !important;
     padding: 0px 10px !important;
     background: none !important;
+}
+
+.ngiconPru {
+    margin: 0px;
+    padding: 0px;
+    height: 24px;
+    width: 24px;
+    align-items: center;
+    // size: 24px;
 }
