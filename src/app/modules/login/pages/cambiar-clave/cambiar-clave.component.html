@@ -13,13 +13,13 @@
                         <div class="form-floating position-relative">
                             <input formControlName="contrasena_1" type="password" id="contrasena_1" #inputPass
                                 [class.is-invalid]="f.contrasena_1.errors && f.contrasena_1.touched || !val"
-                                class="form-control" placeholder="Password">
+                                class="form-control" placeholder="Password" (keyup)="cambioPassEvent_1($event)">
                             <label for="floatingPassword" style="font-size: 14px;"><i class="bi bi-lock-fill"></i>
                                 &nbsp;Nueva contraseña.</label>
                             <div id="validationServer03Feedback" class="invalid-feedback">
                                 Por favor ingrese su contraseña.
                             </div>
-                            <div class="position-absolute top-50 end-0 translate-middle-y">
+                            <div class="position-absolute top-50 end-0 translate-middle-y" #btnEyePass>
                                 <button (click)="cambioPass()" type="button" class="configuracion-boton-icon">
                                     <ng-icon class="ngiconPru" name="{{iconName}}"></ng-icon></button>
                             </div>
@@ -31,7 +31,7 @@
                                 class="form-control" placeholder="Password" (keyup)="cambioPassEvent($event)">
                             <label for="floatingPassword" style="font-size: 14px;"><i class="bi bi-lock-fill"></i>
                                 &nbsp;Confirme nueva contraseña.</label>
-                            <div class="position-absolute top-50 end-0 translate-middle-y">
+                            <div class="position-absolute top-50 end-0 translate-middle-y" #btnEyePass_1>
                                 <button (click)="cambioPass_2()" type="button" class="configuracion-boton-icon">
                                     <ng-icon class="ngiconPru" name="{{iconName2}}"></ng-icon></button>
                             </div>
@@ -39,6 +39,7 @@
                                 Por favor ingrese su contraseña.
                             </div>
                         </div>
+
                         <button class="primerbtn" type="submit">Guardar</button>
                         <button (click)="logout()">Cerrar Sesión</button>
                     </form>

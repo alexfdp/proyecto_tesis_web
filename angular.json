@@ -21,9 +21,10 @@
             "allowedCommonJsDependencies": [
               "rxjs-compat",
               "validator",
-              "twilio-video",
-              "chartjs",
-              "lodash"
+              "generate-password-ts",
+              "moment",
+              "sweetalert2",
+              "chartjs"
             ],
             "outputPath": "dist/proyecto_tesis_web",
             "index": "src/index.html",

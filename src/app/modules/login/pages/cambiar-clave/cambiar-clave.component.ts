@@ -1,11 +1,8 @@
-import { Component, ElementRef, Inject, inject, ViewChild } from '@angular/core';
+import { Component, ElementRef, Inject, inject, Renderer2, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { MatIconRegistry } from '@angular/material/icon';
-import { DomSanitizer } from '@angular/platform-browser';
 import { Router } from '@angular/router';
-import { NgIconLoader } from '@ng-icons/core';
-
-
+import { LoginServiceService } from '../../services/login-service.service';
+import Swal from 'sweetalert2';
 @Component({
   selector: 'app-cambiar-clave',
   templateUrl: './cambiar-clave.component.html',
@@ -15,14 +12,23 @@ export class CambiarClaveComponent {
 
   @ViewChild('inputPass1') inputPass1!: ElementRef;
   @ViewChild('inputPass') inputPass!: ElementRef;
+  @ViewChild('btnEyePass') btnEyePass!: ElementRef;
+  @ViewChild('btnEyePass_1') btnEyePass_1!: ElementRef;
   public myForm!: FormGroup;
   val = true;
   iconName = 'bootstrapEyeFill';
   iconName2 = 'bootstrapEyeFill';
 
   constructor(private routerprd: Router, private fb: FormBuilder,
+    private renderer: Renderer2, private loginAuth: LoginServiceService,
   ) {
     this.myForm = this.createMyForm();
+    this.myForm.get('contrasena_1')!.statusChanges.subscribe(() => {
+      this.condicionales();
+    });
+    this.myForm.get('contrasena')!.statusChanges.subscribe(() => {
+      this.condicionales();
+    });
   }
 
   public get f(): any {
@@ -37,19 +43,33 @@ export class CambiarClaveComponent {
 
   private createMyForm(): FormGroup {
     return this.fb.group({
-      contrasena_1: ['', [Validators.required]],
-      contrasena: ['', [Validators.required]]
+      contrasena_1: ['', [Validators.required, Validators.minLength(1)]],
+      contrasena: ['', [Validators.required, Validators.minLength(1)]]
     });
   }
 
   cambioPassEvent(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     const contrasena = this.myForm.get('contrasena_1')?.value
+    console.log("cambio contrasena: " + filterValue)
     if (filterValue === contrasena) {
       this.val = true
     } else {
       this.val = false
     }
+    this.condicionales()
+  }
+
+  cambioPassEvent_1(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    const contrasena = this.myForm.get('contrasena')?.value
+    console.log("cambio contrasena_1: " + filterValue)
+    if (filterValue === contrasena) {
+      this.val = true
+    } else {
+      this.val = false
+    }
+    this.condicionales()
   }
 
   submitFormulario() {
@@ -63,8 +83,31 @@ export class CambiarClaveComponent {
     // this.enviarCambioClave()
   }
 
-  enviarCambioClave() {
+  enviarCambioClave(contrasena: string) {
 
+    this.loginAuth.updatePassword(contrasena).subscribe({
+      next: (mensajeOk) => {
+        this.logout()
+
+      },
+      error: (response: any) => {
+
+      }
+    })
+  }
+
+  condicionales() {
+    // console.log(this.inputPass.nativeElement)
+    if (this.myForm.get('contrasena_1')!.invalid || !this.val) {
+      this.renderer.addClass(this.btnEyePass.nativeElement, "clase_btn_eye");
+    } else {
+      this.renderer.removeClass(this.btnEyePass.nativeElement, "clase_btn_eye");
+    }
+    if (this.myForm.get('contrasena')!.invalid || !this.val) {
+      this.renderer.addClass(this.btnEyePass_1.nativeElement, "clase_btn_eye");
+    } else {
+      this.renderer.removeClass(this.btnEyePass_1.nativeElement, "clase_btn_eye");
+    }
   }
 
   cambioPass() {

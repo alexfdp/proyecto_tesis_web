@@ -10,11 +10,16 @@ import { environment } from 'src/environments/environment.development';
 })
 export class LoginServiceService {
   private auth = "auth"
+  private changePass = "/changePass"
 
   constructor(private http: HttpClient) { }
 
   public autenticar(datauser: Auth): Observable<AuthToken> {
     return this.http.post<AuthToken>(`${environment.apiUrl}/${this.auth}`, datauser);
+  }
+
+  public updatePassword(contrasena: string): Observable<any> {
+    return this.http.put(`${environment.apiUrl}/${this.auth}${this.changePass}`, contrasena)
   }
 
   public cargar(archivos: string[]) {
