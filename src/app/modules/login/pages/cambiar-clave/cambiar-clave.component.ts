@@ -1,4 +1,4 @@
-import { Component, ElementRef, Inject, inject, Renderer2, ViewChild } from '@angular/core';
+import { Component, ElementRef, Renderer2, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { LoginServiceService } from '../../services/login-service.service';
@@ -51,7 +51,6 @@ export class CambiarClaveComponent {
   cambioPassEvent(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     const contrasena = this.myForm.get('contrasena_1')?.value
-    console.log("cambio contrasena: " + filterValue)
     if (filterValue === contrasena) {
       this.val = true
     } else {
@@ -63,7 +62,6 @@ export class CambiarClaveComponent {
   cambioPassEvent_1(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     const contrasena = this.myForm.get('contrasena')?.value
-    console.log("cambio contrasena_1: " + filterValue)
     if (filterValue === contrasena) {
       this.val = true
     } else {
@@ -80,30 +78,44 @@ export class CambiarClaveComponent {
       });
       return;
     }
-    // this.enviarCambioClave()
+    console.log(this.myForm.controls['contrasena'].value)
+    this.enviarCambioClave(this.myForm.controls['contrasena'].value)
   }
 
   enviarCambioClave(contrasena: string) {
-
+    console.log("contrasena ingresada: " + contrasena)
     this.loginAuth.updatePassword(contrasena).subscribe({
       next: (mensajeOk) => {
+        Swal.fire({
+          title: 'Contraseña actualizada correctamente',
+          icon: 'success',
+          text: 'Ingrese con sus nuevas credenciales',
+          confirmButtonText: 'Ok'
+        });
         this.logout()
-
       },
       error: (response: any) => {
-
+        var msg = response["error"]["message"]
+        Swal.fire({
+          title: 'Error al actualizar',
+          text: 'Error: ' + msg.toUpperCase(),
+          icon: 'error',
+          confirmButtonText: 'Ok'
+        });
+        console.log("mensaje error api: " + msg);
       }
     })
   }
 
   condicionales() {
-    // console.log(this.inputPass.nativeElement)
-    if (this.myForm.get('contrasena_1')!.invalid || !this.val) {
+    if (this.myForm.controls['contrasena_1'].invalid || !this.val) {
+      this.myForm.controls['contrasena_1'].markAllAsTouched()
       this.renderer.addClass(this.btnEyePass.nativeElement, "clase_btn_eye");
     } else {
       this.renderer.removeClass(this.btnEyePass.nativeElement, "clase_btn_eye");
     }
-    if (this.myForm.get('contrasena')!.invalid || !this.val) {
+    if (this.myForm.controls['contrasena'].invalid || !this.val) {
+      this.myForm.controls['contrasena'].markAllAsTouched()
       this.renderer.addClass(this.btnEyePass_1.nativeElement, "clase_btn_eye");
     } else {
       this.renderer.removeClass(this.btnEyePass_1.nativeElement, "clase_btn_eye");

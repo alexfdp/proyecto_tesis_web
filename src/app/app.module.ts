@@ -4,6 +4,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { MenuComponent } from './modules/menu/menu.component';
 import { SharedModule } from './shared/shared/shared.module';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
@@ -25,6 +26,7 @@ registerLocaleData(localeEs, 'es');
   imports: [
     BrowserModule,
     AppRoutingModule,
+    FontAwesomeModule,
     BrowserAnimationsModule,
     NgbModule,
     SharedModule,

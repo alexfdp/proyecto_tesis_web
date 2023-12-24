@@ -13,7 +13,7 @@
                         <div class="form-floating position-relative">
                             <input formControlName="contrasena_1" type="password" id="contrasena_1" #inputPass
                                 [class.is-invalid]="f.contrasena_1.errors && f.contrasena_1.touched || !val"
-                                class="form-control" placeholder="Password" (keyup)="cambioPassEvent_1($event)">
+                                class="form-control" (keyup)="cambioPassEvent_1($event)" (blur)="condicionales()">
                             <label for="floatingPassword" style="font-size: 14px;"><i class="bi bi-lock-fill"></i>
                                 &nbsp;Nueva contraseña.</label>
                             <div id="validationServer03Feedback" class="invalid-feedback">
@@ -28,7 +28,7 @@
                         <div class="form-floating position-relative">
                             <input formControlName="contrasena" type="password" id="contrasena" #inputPass1
                                 [class.is-invalid]="f.contrasena.errors && f.contrasena.touched || !val"
-                                class="form-control" placeholder="Password" (keyup)="cambioPassEvent($event)">
+                                class="form-control" (keyup)="cambioPassEvent($event)" (blur)="condicionales()">
                             <label for="floatingPassword" style="font-size: 14px;"><i class="bi bi-lock-fill"></i>
                                 &nbsp;Confirme nueva contraseña.</label>
                             <div class="position-absolute top-50 end-0 translate-middle-y" #btnEyePass_1>

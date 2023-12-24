@@ -51,6 +51,12 @@
                     </td>
                 </ng-container>
 
+                <!-- Nivel de acceso Column -->
+                <ng-container matColumnDef="rol">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header class="texto"> Rol </th>
+                    <td mat-cell *matCellDef="let row" class="texto">{{ row.rol }}</td>
+                </ng-container>
+
                 <!-- Fecha de registro Column -->
                 <ng-container matColumnDef="fechareg">
                     <th mat-header-cell *matHeaderCellDef class="texto"> Fecha de registro </th>

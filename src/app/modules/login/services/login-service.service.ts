@@ -19,7 +19,7 @@ export class LoginServiceService {
   }
 
   public updatePassword(contrasena: string): Observable<any> {
-    return this.http.put(`${environment.apiUrl}/${this.auth}${this.changePass}`, contrasena)
+    return this.http.put(`${environment.apiUrl}/${this.auth}${this.changePass}`, { 'contrasena': contrasena })
   }
 
   public cargar(archivos: string[]) {

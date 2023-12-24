@@ -20,7 +20,7 @@ export class PerfilesComponent {
   usuarioSelect!: Usuario
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
-  displayedColumns: string[] = ['id', 'nombre', 'usuario', 'estado', 'fechareg', 'acciones'];
+  displayedColumns: string[] = ['id', 'nombre', 'usuario', 'estado', 'rol', 'fechareg', 'acciones'];
 
   constructor(private empleadoSrv: EmpleadosService,
     public dialog: MatDialog,

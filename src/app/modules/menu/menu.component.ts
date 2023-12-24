@@ -3,6 +3,7 @@ import { MatDrawerMode } from '@angular/material/sidenav';
 import { MenuValService } from './service/menu-val.service';
 import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
+import { faIdCardClip, faTimeline } from '@fortawesome/free-solid-svg-icons';
 import { catchError, retry } from 'rxjs/operators';
 
 @Component({
@@ -14,6 +15,7 @@ export class MenuComponent {
   valid = true;
   nombre = "";
   rol = "";
+  iconTurnsEmployees = faTimeline
   mode!: MatDrawerMode
   ngOnInit(): void {
     this.recogerdata()
