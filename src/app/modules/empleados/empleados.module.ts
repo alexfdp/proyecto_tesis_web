@@ -8,8 +8,11 @@ import { SharedModule } from 'src/app/shared/shared/shared.module';
 import { EmpleadosComponent } from './pages/empleados/empleados.component';
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { NgIconsModule, provideNgIconsConfig } from '@ng-icons/core';
-import { bootstrapInfoCircleFill } from '@ng-icons/bootstrap-icons'
+import { bootstrapInfoCircleFill } from '@ng-icons/bootstrap-icons';
+import { TimepickerModule } from 'ngx-bootstrap/timepicker';
 import { esLocale } from 'ngx-bootstrap/locale';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -20,12 +23,15 @@ import { esLocale } from 'ngx-bootstrap/locale';
   ],
   imports: [
     CommonModule,
+    ReactiveFormsModule,
     EmpleadosRoutingModule,
     SharedModule,
+    FormsModule,
+    TimepickerModule.forRoot(),
     BsDatepickerModule.forRoot(),
-    NgIconsModule.withIcons({bootstrapInfoCircleFill }),
+    NgIconsModule.withIcons({ bootstrapInfoCircleFill }),
   ],
-  providers:[
+  providers: [
     provideNgIconsConfig({
       size: '20px',
     }),

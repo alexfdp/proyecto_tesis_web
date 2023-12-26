@@ -8,6 +8,7 @@ import { Rol } from 'src/app/models/Rol';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment.development';
 import { Usuario } from 'src/app/models/Usuario';
+import { Employee } from 'src/app/models/Employee';
 
 @Injectable({
   providedIn: 'root'
@@ -15,6 +16,7 @@ import { Usuario } from 'src/app/models/Usuario';
 export class EmpleadosService {
   private getempleados = "empleados"
   private putEstadoEmpleado = "empleados/estado"
+  private getOnlyEmpleado = "empleados/only"
   private getvaluser = "empleados/validuser"
   private getpuestos = "public/puestos"
   private getroles = "public/roles"
@@ -26,6 +28,10 @@ export class EmpleadosService {
   public getAllEmpleados() {
     let headers = new HttpHeaders().set('Authorization', 'Bearer ' + localStorage.getItem("token"));
     return this.http.get<Empleado[]>(`${environment.apiUrl}/${this.getempleados}`, { headers });
+  }
+
+  public getOnlyEmpleados() {
+    return this.http.get<Employee[]>(`${environment.apiUrl}/${this.getOnlyEmpleado}`);
   }
 
   public getUsuario(usuario: string) {

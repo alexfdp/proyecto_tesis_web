@@ -35,7 +35,6 @@ export class PerfilesComponent {
         this.usuarios = new MatTableDataSource(data);
         this.usuarios.sort = this.sort;
         this.usuarios.paginator = this.paginator;
-        // console.log(data);
       },
       error: (response) => {
         var msg = response["error"]["message"]
@@ -70,11 +69,10 @@ export class PerfilesComponent {
   }
 
   applyFilter(event: Event) {
-    // const filterValue = (event.target as HTMLInputElement).value;
-    // this.empleados.filter = filterValue.trim().toLowerCase();
-
-    // if (this.empleados.paginator) {
-    //   this.empleados.paginator.firstPage();
-    // }
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.usuarios.filter = filterValue.trim().toLowerCase();
+    if (this.usuarios.paginator) {
+      this.usuarios.paginator.firstPage();
+    }
   }
 }
