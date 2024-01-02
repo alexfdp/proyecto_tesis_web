@@ -14,6 +14,7 @@ import { catchError, retry } from 'rxjs/operators';
 export class LoginComponent {
   public myForm!: FormGroup;
   private loginDto!: Auth;
+  charge = false
 
   constructor(private fb: FormBuilder, private routerprd: Router,
     private loginAuth: LoginServiceService,) {
@@ -59,6 +60,7 @@ export class LoginComponent {
       return;
     }
     this.loginDto = this.myForm.value;
+    this.charge = true
     this.login(this.loginDto);
   }
 

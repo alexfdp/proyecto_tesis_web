@@ -38,7 +38,6 @@
     "generate-password-ts": "^1.6.5",
     "moment": "^2.29.4",
     "ngx-bootstrap": "^11.0.2",
-    "primeng": "^16.9.2-lts",
     "rxjs": "~7.8.0",
     "sweetalert2": "^11.10.1",
     "tslib": "^2.3.0",
