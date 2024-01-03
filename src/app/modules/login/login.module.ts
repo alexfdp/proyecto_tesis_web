@@ -9,6 +9,7 @@ import { CambiarClaveComponent } from './pages/cambiar-clave/cambiar-clave.compo
 import { NgIconsModule, provideNgIconsConfig, provideNgGlyphs, provideNgIconLoader, withCaching } from '@ng-icons/core';
 import { bootstrapEyeFill, bootstrapEyeSlashFill } from '@ng-icons/bootstrap-icons';
 import { HttpClient } from '@angular/common/http';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 @NgModule({
   declarations: [
@@ -21,6 +22,7 @@ import { HttpClient } from '@angular/common/http';
     FormsModule,
     ReactiveFormsModule,
     LoginRoutingModule,
+    MatProgressSpinnerModule,
     SharedModule,
     NgIconsModule.withIcons({ bootstrapEyeFill, bootstrapEyeSlashFill }),
   ],
