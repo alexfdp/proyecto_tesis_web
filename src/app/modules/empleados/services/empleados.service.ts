@@ -6,7 +6,7 @@ import { EmpleadoDAO } from 'src/app/models/EmpleadoDAO';
 import { Puesto } from 'src/app/models/Puesto';
 import { Rol } from 'src/app/models/Rol';
 import { Observable } from 'rxjs';
-import { environment } from 'src/environments/environment.development';
+import { environment } from 'src/environments/environment';
 import { Usuario } from 'src/app/models/Usuario';
 import { Employee } from 'src/app/models/Employee';
 
