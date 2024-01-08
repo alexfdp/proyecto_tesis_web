@@ -24,25 +24,23 @@
                 <div class="col-md-6 prueba">Fecha - hora de fin</div>
                 <div class="col-md-3 prueba">
                     <input type="text" placeholder="Datepicker" class="form-control" bsDatepicker
-                        formControlName="fecha_1" [bsConfig]="{ isAnimated: true }">
+                        formControlName="fecha_1" [bsConfig]="{ isAnimated: true, dateInputFormat: 'DD/MM/YYYY' }">
                 </div>
                 <div class="col-md-3 prueba">
-                    <timepicker formControlName="hora_1" [showMeridian]="false"></timepicker>
+                    <timepicker formControlName="hora_1" [showMeridian]="true"></timepicker>
                 </div>
                 <div class="col-md-3 prueba">
                     <input type="text" placeholder="Datepicker" class="form-control" bsDatepicker
-                        formControlName="fecha_2" [bsConfig]="{ isAnimated: true }">
+                        formControlName="fecha_2" [bsConfig]="{ isAnimated: true, dateInputFormat: 'DD/MM/YYYY' }">
                 </div>
                 <div class="col-md-3 prueba">
-                    <timepicker formControlName="hora_2" [showMeridian]="false"></timepicker>
+                    <timepicker formControlName="hora_2" [showMeridian]="true"></timepicker>
                 </div>
 
                 <div class="col-12">
-                    <!-- <pre class="alert alert-info">Time is: {{mytime}}</pre> -->
                     <pre class="alert alert-info">Time is: {{ myForm.get('fecha_1')?.value }}</pre>
                 </div>
                 <div class="col-12">
-                    <!-- <pre class="alert alert-info">Time is: {{mytime}}</pre> -->
                     <pre class="alert alert-info">Time is: {{ myForm.get('hora_1')?.value }}</pre>
                 </div>
                 <!-- <div class="mb-3">

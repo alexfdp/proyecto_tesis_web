@@ -14,6 +14,8 @@ export class TrabajoComponent {
   public myForm!: FormGroup;
   mytime: Date = new Date();
   empleados!: Employee[];
+  fecha_ini!: Date;
+  fecha_end!: Date
   fecha_inicio: any
   fecha_fin: any
   fechas_val = false
@@ -39,20 +41,22 @@ export class TrabajoComponent {
   }
 
   private createMyForm(): FormGroup {
+    this.fecha_ini = new Date()
+    this.fecha_end = new Date()
     return this.fb.group({
-      fecha_1: [new Date(),],
-      hora_1: [new Date(),],
-      fecha_2: [new Date(),],
-      hora_2: [new Date(),],
+      // fecha_1: [this.fecha_ini,],
+      // hora_1: [this.fecha_ini,],
+      // fecha_2: [this.fecha_end,],
+      // hora_2: [this.fecha_end,],
     });
   }
 
   submitFormulario() {
     // console.log(this.myForm.get('fecha_1')!.value > this.myForm.get('fecha_2')!.value)
     // console.log(this.myForm.get('fecha_1')!.value < this.myForm.get('fecha_2')!.value)
-    this.fechas_val = this.myForm.get('fecha_1')!.value < this.myForm.get('fecha_2')!.value
+    this.fechas_val = this.myForm.get('fecha_1')!.value > this.myForm.get('fecha_2')!.value
     console.log(this.fechas_val)
-    if (this.myForm.invalid) {
+    if (this.myForm.invalid || this.fechas_val) {
       console.log("Formulario inválido")
       Object.values(this.myForm.controls).forEach(control => {
         control.markAllAsTouched();
@@ -63,6 +67,6 @@ export class TrabajoComponent {
     this.fecha_inicio += " " + this.miDatePipe.transform(this.myForm.get('hora_1')!.value, 'HH:mm:ss');
     this.fecha_fin = this.miDatePipe.transform((this.myForm.get('fecha_2')!.value), 'yyyy-MM-dd');
     this.fecha_fin += " " + this.miDatePipe.transform(this.myForm.get('hora_2')!.value, 'HH:mm:ss');
-    // console.log("fecha de inicio: " + this.fecha_inicio + "\nFecha de fin: " + this.fecha_fin)
+    console.log("fecha de inicio: " + this.fecha_inicio + "\nFecha de fin: " + this.fecha_fin)
   }
 }
