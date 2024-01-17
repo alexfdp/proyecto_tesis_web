@@ -20,43 +20,30 @@
     <mat-card class="container">
         <mat-card-content>
             <form class="row g-3 needs-validation" [formGroup]="myForm" (ngSubmit)="submitFormulario()" validate>
-                <div class="col-md-6 prueba">Fecha - hora de inicio</div>
-                <div class="col-md-6 prueba">Fecha - hora de fin</div>
-                <div class="col-md-3 prueba">
-                    <input type="text" placeholder="Datepicker" class="form-control" bsDatepicker
-                        formControlName="fecha_1" [bsConfig]="{ isAnimated: true, dateInputFormat: 'DD/MM/YYYY' }">
-                </div>
-                <div class="col-md-3 prueba">
-                    <timepicker formControlName="hora_1" [showMeridian]="true"></timepicker>
-                </div>
-                <div class="col-md-3 prueba">
-                    <input type="text" placeholder="Datepicker" class="form-control" bsDatepicker
-                        formControlName="fecha_2" [bsConfig]="{ isAnimated: true, dateInputFormat: 'DD/MM/YYYY' }">
-                </div>
-                <div class="col-md-3 prueba">
-                    <timepicker formControlName="hora_2" [showMeridian]="true"></timepicker>
-                </div>
-
+                <div class="col-md-12">Rango de Horario</div>
                 <div class="col-12">
+                    <input type="text" placeholder="Daterangepicker" class="form-control" [minDate]="minDate"
+                        formControlName="fecha_1"
+                        [bsConfig]="{withTimepicker: true, keepDatepickerOpened: true, rangeInputFormat : 'MMMM DD YYYY, h:mm:ss a', dateInputFormat: 'MMMM DD YYYY, h:mm:ss a', showWeekNumbers: false}"
+                        bsDaterangepicker>
+                </div>
+                <div class="col-md-6">
+                    <input type="text" placeholder="Datepicker" class="form-control"
+                        [bsConfig]="{withTimepicker: true, keepDatepickerOpened: true, rangeInputFormat : 'MMMM DD YYYY, h:mm:ss a', dateInputFormat: 'MMMM DD YYYY, h:mm:ss a', showWeekNumbers: false}"
+                        bsDatepicker>
+                </div>
+                <div class="col-md-6">
+                    <input type="text" placeholder="Datepicker" class="form-control"
+                        [bsConfig]="{withTimepicker: true, keepDatepickerOpened: true, rangeInputFormat : 'MMMM DD YYYY, h:mm:ss a', dateInputFormat: 'MMMM DD YYYY, h:mm:ss a', showWeekNumbers: false}"
+                        bsDatepicker>
+                </div>
+                <div class="col-xs-12 col-12 col-md-4 form-group">
+                    <input type="text" placeholder="Datepicker" class="form-control"
+                        [bsConfig]="{withTimepicker: true, keepDatepickerOpened: true, rangeInputFormat : 'MMMM DD YYYY, h:mm:ss a', dateInputFormat: 'MMMM Do YYYY, h:mm:ss a'}"
+                        bsDatepicker>
+                </div>
+                <!-- <div class="col-12">
                     <pre class="alert alert-info">Time is: {{ myForm.get('fecha_1')?.value }}</pre>
-                </div>
-                <div class="col-12">
-                    <pre class="alert alert-info">Time is: {{ myForm.get('hora_1')?.value }}</pre>
-                </div>
-                <!-- <div class="mb-3">
-                    <label for="basic-url" class="form-label">Your vanity URL</label>
-                    <div class="input-group">
-                        <span class="input-group-text" id="basic-addon3">https://example.com/users/</span>
-                        <input type="text" class="form-control" id="basic-url"
-                            aria-describedby="basic-addon3 basic-addon4">
-                    </div>
-                    <div class="form-text" id="basic-addon4">Example help text goes outside the input group.</div>
-                </div>
-
-                <div class="input-group mb-3">
-                    <span class="input-group-text">$</span>
-                    <input type="text" class="form-control" aria-label="Amount (to the nearest dollar)">
-                    <span class="input-group-text">.00</span>
                 </div> -->
                 <div class="d-grid gap-2 d-md-flex justify-content-md-end">
                     <button class="btn btn-danger me-md-2" type="button">Cancelar</button>

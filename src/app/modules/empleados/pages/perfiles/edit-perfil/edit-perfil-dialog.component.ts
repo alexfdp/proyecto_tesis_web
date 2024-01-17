@@ -109,7 +109,7 @@ export class EditPerfilDialog {
                 length: 10,
                 numbers: true,
                 uppercase: true,
-                symbols: '_-.'
+                symbols: '_.'
             });
             this.usuario = this.myForm.value;
             this.usuario.contrasena = password;

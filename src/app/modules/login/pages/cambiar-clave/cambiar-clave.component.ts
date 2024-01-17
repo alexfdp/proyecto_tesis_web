@@ -78,12 +78,10 @@ export class CambiarClaveComponent {
       });
       return;
     }
-    console.log(this.myForm.controls['contrasena'].value)
     this.enviarCambioClave(this.myForm.controls['contrasena'].value)
   }
 
   enviarCambioClave(contrasena: string) {
-    console.log("contrasena ingresada: " + contrasena)
     this.loginAuth.updatePassword(contrasena).subscribe({
       next: (mensajeOk) => {
         Swal.fire({
@@ -98,7 +96,7 @@ export class CambiarClaveComponent {
         var msg = response["error"]["message"]
         Swal.fire({
           title: 'Error al actualizar',
-          text: 'Error: ' + msg.toUpperCase(),
+          text: 'Error: ' + msg,
           icon: 'error',
           confirmButtonText: 'Ok'
         });

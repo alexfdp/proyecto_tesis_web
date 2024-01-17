@@ -73,11 +73,9 @@ export class LoginComponent {
   sesion() {
     if (localStorage.getItem("token")) {
       if (localStorage.getItem("estate") === "1") {
-        console.log("entro if 1");
         this.redirecMenu();
       } else {
         if (localStorage.getItem("estate") === "2") {
-          console.log("entro if 2");
           this.redirecChangePass()
         }
       }

@@ -12,6 +12,7 @@ import { bootstrapInfoCircleFill } from '@ng-icons/bootstrap-icons';
 import { TimepickerModule } from 'ngx-bootstrap/timepicker';
 import { esLocale } from 'ngx-bootstrap/locale';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { NgbDatepicker } from '@ng-bootstrap/ng-bootstrap';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
@@ -26,6 +27,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     ReactiveFormsModule,
     EmpleadosRoutingModule,
     SharedModule,
+    NgbDatepicker,
     FormsModule,
     TimepickerModule.forRoot(),
     BsDatepickerModule.forRoot(),
