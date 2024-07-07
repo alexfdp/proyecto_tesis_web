@@ -66,4 +66,6 @@ export class EmpleadosService {
   public putUsuario(user: Usuario): Observable<any> {
     return this.http.put(`${environment.apiUrl}/${this.usuarios}`, user)
   }
+
+  // public
 }

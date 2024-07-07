@@ -16,13 +16,15 @@ defineLocale('es', esLocale);
 export class TrabajoComponent {
 
   public myForm!: FormGroup;
-  mytime: Date = new Date();
+  minDateInicio: Date = new Date();
+  minDateFin: Date = new Date();
   empleados!: Employee[];
-  fecha_rango: Date[] = [new Date(), new Date()]
-  fecha_inicio: any
-  fecha_fin: any
-  fechas_val = false
-  minDate: Date;
+  fecha_inicio!: Date
+  fecha_fin!: Date
+  fechas_val = true
+  format_date_init: any
+  format_date_end: any
+  number_hours: any
 
   constructor(private empleadoSrv: EmpleadosService,
     private fb: FormBuilder,
@@ -30,8 +32,8 @@ export class TrabajoComponent {
     this.consultarUsuarios();
     this.bsLocaleService.use('es');//fecha en español, datepicker
     this.myForm = this.createMyForm();
-    this.minDate = new Date();
-    this.minDate.setDate(this.minDate.getDate() - 1);
+    this.minDateInicio.setDate(this.minDateInicio.getDate() - 1);
+    this.minDateFin.setHours(this.minDateFin.getHours() + 8);
   }
 
   consultarUsuarios() {
@@ -49,17 +51,15 @@ export class TrabajoComponent {
 
   private createMyForm(): FormGroup {
     return this.fb.group({
-      fecha_1: [this.fecha_rango,],
+      fecha_1: [new Date(),],
+      fecha_2: [this.minDateFin,]
     });
   }
 
   submitFormulario() {
-    this.fecha_rango = this.myForm.get('fecha_1')?.value
-    if (this.fecha_rango[0] > this.fecha_rango[1]) {
-      this.fechas_val = true
-    } else {
-      this.fechas_val = false
-    }
+    this.fecha_inicio = this.myForm.get('fecha_1')?.value
+    this.fecha_fin = this.myForm.get('fecha_2')?.value
+    this.fechas_val = this.fecha_inicio >= this.fecha_fin
     if (this.myForm.invalid || this.fechas_val) {
       console.log("Formulario inválido")
       Object.values(this.myForm.controls).forEach(control => {
@@ -67,11 +67,12 @@ export class TrabajoComponent {
       });
       return;
     }
-    this.fecha_inicio = this.miDatePipe.transform((this.fecha_rango[0]), 'yyyy-MM-dd HH:mm:ss');
-    console.log(this.fecha_inicio)
-    // this.fecha_inicio += " " + this.miDatePipe.transform(this.myForm.get('hora_1')!.value, 'HH:mm:ss');
-    // this.fecha_fin = this.miDatePipe.transform((this.myForm.get('fecha_2')!.value), 'yyyy-MM-dd');
-    // this.fecha_fin += " " + this.miDatePipe.transform(this.myForm.get('hora_2')!.value, 'HH:mm:ss');
-    // console.log("fecha de inicio: " + this.fecha_inicio + "\nFecha de fin: " + this.fecha_fin)
+    this.format_date_init = this.miDatePipe.transform(this.fecha_inicio, 'yyyy-MM-dd HH:mm:ss');
+    this.format_date_end = this.miDatePipe.transform(this.fecha_fin, 'yyyy-MM-dd HH:mm:ss');
+    this.number_hours = Math.round((this.fecha_fin.getTime() - this.fecha_inicio.getTime()) / (1000 * 60 * 60))
+    // console.log('fecha de inicio: ' + this.format_date_init)
+    // console.log('fecha de inicio: ' + this.format_date_end)
+    // console.log('número de horas: ' + this.number_hours)
+    
   }
 }

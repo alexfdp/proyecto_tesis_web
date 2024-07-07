@@ -8,6 +8,7 @@ export interface EmpleadoDAO {
     correo: string
     sueldo: number
     puesto_id: number
+    rol_id: number
     fecha_ingres: Date
     fecha_nacimient: Date
     fecha_nacimiento: any

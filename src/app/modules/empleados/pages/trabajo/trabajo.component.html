@@ -21,30 +21,20 @@
         <mat-card-content>
             <form class="row g-3 needs-validation" [formGroup]="myForm" (ngSubmit)="submitFormulario()" validate>
                 <div class="col-md-12">Rango de Horario</div>
-                <div class="col-12">
-                    <input type="text" placeholder="Daterangepicker" class="form-control" [minDate]="minDate"
-                        formControlName="fecha_1"
+                <div class="col-md-6">
+                    <label for="exampleFormControlInput1" class="form-label">Fecha de ingreso</label>
+                    <input type="text" placeholder="Datepicker" class="form-control" formControlName="fecha_1"
+                        [minDate]="minDateInicio"
                         [bsConfig]="{withTimepicker: true, keepDatepickerOpened: true, rangeInputFormat : 'MMMM DD YYYY, h:mm:ss a', dateInputFormat: 'MMMM DD YYYY, h:mm:ss a', showWeekNumbers: false}"
-                        bsDaterangepicker>
+                        bsDatepicker required>
                 </div>
                 <div class="col-md-6">
-                    <input type="text" placeholder="Datepicker" class="form-control"
+                    <label for="exampleFormControlInput1" class="form-label">Fecha de salida</label>
+                    <input type="text" placeholder="Datepicker" class="form-control" formControlName="fecha_2"
+                        [minDate]="minDateFin"
                         [bsConfig]="{withTimepicker: true, keepDatepickerOpened: true, rangeInputFormat : 'MMMM DD YYYY, h:mm:ss a', dateInputFormat: 'MMMM DD YYYY, h:mm:ss a', showWeekNumbers: false}"
-                        bsDatepicker>
+                        bsDatepicker required>
                 </div>
-                <div class="col-md-6">
-                    <input type="text" placeholder="Datepicker" class="form-control"
-                        [bsConfig]="{withTimepicker: true, keepDatepickerOpened: true, rangeInputFormat : 'MMMM DD YYYY, h:mm:ss a', dateInputFormat: 'MMMM DD YYYY, h:mm:ss a', showWeekNumbers: false}"
-                        bsDatepicker>
-                </div>
-                <div class="col-xs-12 col-12 col-md-4 form-group">
-                    <input type="text" placeholder="Datepicker" class="form-control"
-                        [bsConfig]="{withTimepicker: true, keepDatepickerOpened: true, rangeInputFormat : 'MMMM DD YYYY, h:mm:ss a', dateInputFormat: 'MMMM Do YYYY, h:mm:ss a'}"
-                        bsDatepicker>
-                </div>
-                <!-- <div class="col-12">
-                    <pre class="alert alert-info">Time is: {{ myForm.get('fecha_1')?.value }}</pre>
-                </div> -->
                 <div class="d-grid gap-2 d-md-flex justify-content-md-end">
                     <button class="btn btn-danger me-md-2" type="button">Cancelar</button>
                     <button class="btn btn-primary" type="submit">Actualizar</button>
