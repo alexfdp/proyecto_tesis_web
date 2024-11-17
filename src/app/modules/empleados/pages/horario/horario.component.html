@@ -1,0 +1,34 @@
+<br>
+<div class="container">
+    <br>
+    <mat-card class="container">
+        <mat-card-content>
+            <form class="row g-3 needs-validation" [formGroup]="myForm" (ngSubmit)="submitFormulario()" validate>
+                <div class="col-md-6">
+                    <label for="inputPassword6" class="col-form-label">Nombre</label>
+                    <select id="emplead" class="form-select" formControlName="emplead" (change)="capturar()">
+                        <option value="{{dato.idempleado}}" *ngFor="let dato of empleados"
+                            [attr.selected]="dato.idempleado === opcionSlect ? true : null">
+                            {{dato.nombre}}
+                        </option>
+                    </select>
+                </div>
+                <div class="col-md-12">Rango de Horario</div>
+                <div class="col-md-3">
+                    <label for="exampleFormControlInput1" class="form-label">Hora de ingreso</label>
+                    <timepicker formControlName="fecha_1" [(ngModel)]="horaInicio" [showMeridian]="isMeridian" (ngModelChange)="changed()" >
+                    </timepicker>
+                </div>
+                <div class="col-md-3">
+                    <label for="exampleFormControlInput1" class="form-label">Hora de salida</label>
+                    <timepicker formControlName="fecha_2" [(ngModel)]="horaFin" [showMeridian]="isMeridian" [readonlyInput]="!readonly"></timepicker>
+                </div>
+                <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                    <!-- <button class="btn btn-danger me-md-2" type="button">Cancelar</button> -->
+                    <button class="btn btn-primary" type="submit">Actualizar</button>
+                </div>
+            </form>
+        </mat-card-content>
+    </mat-card>
+    <br>
+</div>

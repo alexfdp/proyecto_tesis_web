@@ -94,6 +94,16 @@ mat-drawer .menu-button mat-icon {
     font-size: 25px;
 }
 
+mat-drawer .menu-button ng-icon {
+    // width: 20px;
+    // height: 20px;
+    // // font-size: 20px;
+    margin-right: 6px;
+    height: 24px;
+    width: 24px;
+    padding: 0px;
+}
+
 mat-drawer .menu-button fa-icon {
     margin-right: 8px;
     font-size: 20px;

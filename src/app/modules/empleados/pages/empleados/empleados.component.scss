@@ -67,7 +67,8 @@ section {
 }
 
 .activo,
-.unactivo {
+.unactivo,
+.poractive {
     color: white;
 }
 
@@ -77,6 +78,10 @@ section {
 
 .unactivo {
     background-color: red;
+}
+
+.poractive {
+    background-color: #6b5bff;
 }
 
 .iconBtn {

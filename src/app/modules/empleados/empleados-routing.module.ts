@@ -1,23 +1,19 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { PerfilesComponent } from './pages/perfiles/perfiles.component';
-import { TrabajoComponent } from './pages/trabajo/trabajo.component';
-import { TurnosComponent } from './pages/turnos/turnos.component';
+import { HorarioComponent } from './pages/horario/horario.component';
 import { EmpleadosComponent } from './pages/empleados/empleados.component';
+import { TrabajoComponent } from './pages/trabajo/trabajo.component';
 
 const routes: Routes = [
   {
     path: 'empleados', component: EmpleadosComponent
   },
   {
-    path: 'perfiles', component: PerfilesComponent
+    path: 'horario', component: HorarioComponent
   },
   {
     path: 'trabajo', component: TrabajoComponent
   },
-  {
-    path: 'turnos', component: TurnosComponent
-  }
 ];
 
 @NgModule({

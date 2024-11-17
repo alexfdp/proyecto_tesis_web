@@ -30,7 +30,8 @@
         <div class="col-md-3">
             <label class="form-label">Fecha de Nacimiento</label>
             <input type="text" bsDatepicker class="form-control" formControlName="fecha_nacimient"
-                [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY', showWeekNumbers: false }" (keypress)="onValueChanges($event)"
+                [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY', showWeekNumbers: false }"
+                (keypress)="onValueChanges($event)"
                 [class.is-invalid]="f.fecha_nacimient.errors && (f.fecha_nacimient.dirty || f.fecha_nacimient.touched)"
                 placeholder="dd/mm/yyyy" [maxDate]="fechamin" [minDate]="fechamac" required>
             <div class="invalid-feedback">
@@ -100,8 +101,8 @@
         <div class="col-md-3">
             <label class="form-label">Fecha de Ingreso</label>
             <input type="text" bsDatepicker class="form-control" placeholder="dd/mm/yyyy" formControlName="fecha_ingres"
-                [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" (keypress)="onValueChanges($event)" [placement]="'top'"
-                [minDate]="fechamin"
+                [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY', showWeekNumbers: false }"
+                (keypress)="onValueChanges($event)" [placement]="'top'" [minDate]="fechamin"
                 [class.is-invalid]="f.fecha_ingres.errors && (f.fecha_ingres.dirty || f.fecha_ingres.touched)" required>
             <div class="invalid-feedback">
                 Ingrese una fecha válida

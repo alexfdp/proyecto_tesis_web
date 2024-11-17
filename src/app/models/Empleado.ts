@@ -4,6 +4,7 @@ export interface Empleado {
     apellido: string
     apellido_2: string
     estado: number
+    estadou: number
     cedula: string
     direccion: string
     telefono: string
@@ -15,4 +16,5 @@ export interface Empleado {
     fecha_registro: Date
     fecha_contratacion: Date
     usuario: string
+    contrasena: string
 }

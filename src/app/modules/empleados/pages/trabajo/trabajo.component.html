@@ -1,45 +1,100 @@
 <br>
 <div class="container">
-    <div class="row g-3 align-items-center">
-        <div class="col-auto">
-            <div class="row g-3 align-items-center">
-                <div class="col-auto">
-                    <label for="inputPassword6" class="col-form-label">Nombre</label>
-                </div>
-                <div class="col-auto">
-                    <select class="form-select">
-                        <option value="{{dato.idempleado}}" *ngFor="let dato of empleados">
-                            {{dato.nombre}}
-                        </option>
-                    </select>
-                </div>
-            </div>
-        </div>
-    </div>
     <br>
     <mat-card class="container">
         <mat-card-content>
-            <form class="row g-3 needs-validation" [formGroup]="myForm" (ngSubmit)="submitFormulario()" validate>
-                <div class="col-md-12">Rango de Horario</div>
-                <div class="col-md-6">
-                    <label for="exampleFormControlInput1" class="form-label">Fecha de ingreso</label>
-                    <input type="text" placeholder="Datepicker" class="form-control" formControlName="fecha_1"
-                        [minDate]="minDateInicio"
-                        [bsConfig]="{withTimepicker: true, keepDatepickerOpened: true, rangeInputFormat : 'MMMM DD YYYY, h:mm:ss a', dateInputFormat: 'MMMM DD YYYY, h:mm:ss a', showWeekNumbers: false}"
-                        bsDatepicker required>
+            <div class="prueba2">
+                <div fxLayout="row" fxLayoutAlign="start center" class="clase_filtro_btn">
+                    <!-- <div dir="ltr" fxLayoutGap="100px"> -->
+                    <div class="form-floating form-group col-md-3" fxFlex="20">
+                        <input class="form-control" bsDatepicker
+                            [bsConfig]="{ dateInputFormat: 'YYYY-MM-DD', showWeekNumbers: false }"
+                            [bsValue]="fechaTrabajo" [(ngModel)]="fechaTrabajo" [maxDate]="fechaMax"
+                            [daysDisabled]="[6,0]" placeholder="dd/mm/yyyy">
+                        <label for="floatingInput">Fecha de Trabajo</label>
+                    </div>
+                    <span fxFlex="2"> </span>
+                    <button type="button" fxFlex="10" class="btn btn-success col-md-1"
+                        (click)="filtrar()">Filtrar</button>
                 </div>
-                <div class="col-md-6">
-                    <label for="exampleFormControlInput1" class="form-label">Fecha de salida</label>
-                    <input type="text" placeholder="Datepicker" class="form-control" formControlName="fecha_2"
-                        [minDate]="minDateFin"
-                        [bsConfig]="{withTimepicker: true, keepDatepickerOpened: true, rangeInputFormat : 'MMMM DD YYYY, h:mm:ss a', dateInputFormat: 'MMMM DD YYYY, h:mm:ss a', showWeekNumbers: false}"
-                        bsDatepicker required>
+            </div>
+            <br>
+            <div>
+                <div class="form-floating mb-3 input-search">
+                    <input type="text" class="form-control" matInput #input placeholder="l"
+                        (keyup)="applyFilter($event)">
+                    <label for="floatingInput">Filtro</label>
                 </div>
-                <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-                    <button class="btn btn-danger me-md-2" type="button">Cancelar</button>
-                    <button class="btn btn-primary" type="submit">Actualizar</button>
-                </div>
-            </form>
+            </div>
+
+            <section class="example-container" tabindex="0">
+
+                <table mat-table [dataSource]="horasTrabajo" matSort class="mat-elevation-z8 demo-table">
+
+                    <!-- ID Column -->
+                    <ng-container matColumnDef="id">
+                        <th mat-header-cell *matHeaderCellDef class="texto"> ID </th>
+                        <td mat-cell *matCellDef="let row" class="texto">{{ row.empleado_id }}</td>
+                    </ng-container>
+
+                    <!-- Name Column -->
+                    <ng-container matColumnDef="nombre">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header class="texto"> Nombre </th>
+                        <td mat-cell *matCellDef="let row" class="texto">{{ row.nombre }}</td>
+                    </ng-container>
+
+                    <!-- Fecha Column -->
+                    <ng-container matColumnDef="fecha">
+                        <th mat-header-cell *matHeaderCellDef class="texto"> Fecha </th>
+                        <td mat-cell *matCellDef="let row" class="texto">{{ formatofecha(row.fecha_trabajo) }}</td>
+                    </ng-container>
+
+                    <!-- Horas trabajadas Column -->
+                    <ng-container matColumnDef="horasT">
+                        <th mat-header-cell *matHeaderCellDef class="texto" style="width: auto;"> Horas Trabajadas </th>
+                        <td mat-cell *matCellDef="let row" class="texto">{{ row.horas_regulares_trabajadas }}</td>
+                    </ng-container>
+
+                    <!-- Horas extras Column -->
+                    <ng-container matColumnDef="horasE">
+                        <th mat-header-cell *matHeaderCellDef class="texto" style="width: auto;"> Horas Extras </th>
+                        <td mat-cell *matCellDef="let row" class="texto">{{ row.horas_extras }}</td>
+                    </ng-container>
+
+                    <!-- Total Horas Column -->
+                    <ng-container matColumnDef="total">
+                        <th mat-header-cell *matHeaderCellDef class="texto"> Total Horas </th>
+                        <td mat-cell *matCellDef="let row" class="texto">{{ row.horas_regulares_trabajadas +
+                            row.horas_extras}}</td>
+                    </ng-container>
+
+                    <!-- Comentario Column -->
+                    <ng-container matColumnDef="comentario">
+                        <th mat-header-cell *matHeaderCellDef class="texto"> Comentario </th>
+                        <td mat-cell *matCellDef="let row" class="texto">{{ row.comentario }}</td>
+                    </ng-container>
+
+                    <!-- Acciones Column -->
+                    <ng-container matColumnDef="acciones">
+                        <th mat-header-cell *matHeaderCellDef class="texto"> Editar </th>
+                        <td mat-cell *matCellDef="let row" class="texto">
+                            <mat-icon matTooltip="Editar" fontIcon="edit" class="iconBtn edit"
+                                (click)="openeditdialog()" *ngIf="trabajoEmpleado===row"></mat-icon>
+                        </td>
+                    </ng-container>
+
+                    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                    <tr mat-row (click)="trabajoEmpleado=row" [class.demo-row-is-clicked]="trabajoEmpleado===row"
+                        *matRowDef="let row; columns: displayedColumns;"></tr>
+
+                    <!-- No se encontraron resultados para la consulta -->
+                    <tr class="mat-row" *matNoDataRow>
+                        <td class="mat-cell" colspan="4">No se encontraron resultados para: "{{input.value}}"</td>
+                    </tr>
+
+                </table>
+            </section>
+            <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" aria-label="Select page of users"></mat-paginator>
         </mat-card-content>
     </mat-card>
     <br>

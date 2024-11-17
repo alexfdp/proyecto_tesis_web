@@ -1,0 +1,37 @@
+<div mat-dialog-content class="texto">
+    <h5 class="card-title">Actualizar Horas Trabajadas</h5>
+    <mat-divider></mat-divider>
+    <br>
+    <form class="row g-3 needs-validation" [formGroup]="myForm" (ngSubmit)="submitFormulario()" validate>
+        <div class="col-md-6">
+            <label class="form-label texto">Nombre</label>
+            <input matInput type="text" class="form-control" formControlName="nombre" readonly>
+        </div>
+        <div class="col-md-3">
+            <label class="form-label">Fecha Laboral</label>
+            <input type="text" class="form-control" formControlName="fecha_trabajo" readonly>
+        </div>
+        <div class="col-md-3">
+            <label class="form-label">Horas Trabajadas</label>
+            <input type="text" class="form-control" formControlName="horas_regulares_trabajadas"
+                [class.is-invalid]="f.horas_regulares_trabajadas.errors && f.horas_regulares_trabajadas.touched"
+                maxlength="1">
+        </div>
+        <div class="col-md-3">
+            <label class="form-label">Horas Extras Trabajadas</label>
+            <input type="text" class="form-control" formControlName="horas_extras"
+                [class.is-invalid]="f.horas_extras.errors && f.horas_extras.touched" maxlength="2">
+        </div>
+        <div class="col-md-3">
+            <label class="form-label">Comentario</label>
+            <input type="text" class="form-control" formControlName="comentario"
+                [class.is-invalid]="f.comentario.errors && f.comentario.touched" maxlength="200">
+        </div>
+        <div class="col-12">
+            <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                <button class="btn btn-danger me-md-2" (click)="onNoClick()" type="button">Cancelar</button>
+                <button class="btn btn-primary" type="submit">Actualizar</button>
+            </div>
+        </div>
+    </form>
+</div>

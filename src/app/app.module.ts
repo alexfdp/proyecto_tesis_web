@@ -14,6 +14,7 @@ import { AuthenticationInterceptor } from './shared/services/interceptor';
 import { NgIconsModule } from '@ng-icons/core';
 import { featherAirplay } from '@ng-icons/feather-icons';
 import { heroUsers } from '@ng-icons/heroicons/outline';
+import { matAccessTimeFilledOutline } from '@ng-icons/material-icons/outline';
 import localeEs from '@angular/common/locales/es';
 import { registerLocaleData } from '@angular/common';
 registerLocaleData(localeEs, 'es');
@@ -31,7 +32,7 @@ registerLocaleData(localeEs, 'es');
     NgbModule,
     SharedModule,
     HttpClientModule,
-    NgIconsModule.withIcons({ featherAirplay, heroUsers }),
+    NgIconsModule.withIcons({ featherAirplay, heroUsers, matAccessTimeFilledOutline}),
   ],
   providers: [
     authGuard,
@@ -43,7 +44,7 @@ registerLocaleData(localeEs, 'es');
     },
     {
       provide: LOCALE_ID,
-      useValue: 'es'
+      useValue: 'es-ec'
     }],
   bootstrap: [AppComponent]
 })

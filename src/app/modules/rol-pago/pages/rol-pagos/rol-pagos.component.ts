@@ -6,5 +6,6 @@ import { Component } from '@angular/core';
   styleUrls: ['./rol-pagos.component.scss']
 })
 export class RolPagosComponent {
-
+  displayedColumns: string[] = ['id', 'nombre', 'estadoPago', 'imprimir'];
+  mes = 'noviembre';
 }

@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
 import { faIdCardClip, faTimeline } from '@fortawesome/free-solid-svg-icons';
 import { catchError, retry } from 'rxjs/operators';
+import { provideIcons } from '@ng-icons/core';
 
 @Component({
   selector: 'app-menu',

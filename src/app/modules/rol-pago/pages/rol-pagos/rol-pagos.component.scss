@@ -1,0 +1,136 @@
+.texto {
+    font-family: 'Poppins', sans-serif;
+}
+
+.tabla-container {
+    margin-top: 15px;
+}
+
+.prueba {
+    display: flex;
+    justify-content: center;
+}
+
+.clase_filtro_btn {
+    flex-wrap: wrap-reverse;
+    width: 80%;
+}
+
+.example-container {
+    max-width: 100%;
+    max-height: 100%;
+    overflow: auto;
+}
+
+.input-search {
+    width: 50%;
+}
+
+section {
+    display: flex;
+    justify-content: center;
+}
+
+.demo-table {
+    margin-left: 10px;
+    margin-right: 10px;
+    margin-top: 10px;
+    margin-bottom: 15px;
+    min-width: auto;
+    width: 80%;
+}
+
+.mat-mdc-row .mat-mdc-cell {
+    border-bottom: 1px solid transparent;
+    border-top: 1px solid transparent;
+    cursor: pointer;
+}
+
+.mat-mdc-row:hover .mat-mdc-cell {
+    border-color: currentColor;
+}
+
+.demo-row-is-clicked {
+    font-weight: bold;
+}
+
+.mat-column-id {
+    width: 32px;
+    border-right: 1px solid currentColor;
+    padding-right: 24px;
+    text-align: center;
+}
+
+.mat-mdc-form-field {
+    font-size: 14px;
+    width: 100%;
+}
+
+.activo,
+.unactivo,
+.poractive {
+    color: white;
+}
+
+.activo {
+    background-color: #4AB14D;
+}
+
+.unactivo {
+    background-color: red;
+}
+
+.poractive {
+    background-color: #6b5bff;
+}
+
+.iconBtn {
+    cursor: pointer;
+}
+
+.delete {
+    color: #E15639;
+}
+
+.unlock {
+    color: #05c208;
+}
+
+.edit {
+    color: #381fd6;
+}
+
+//dialog
+.contenedor-dialog {
+    // height: 400px;
+    margin: 30px;
+}
+
+//móviles
+@media only screen and (max-width:768px) {
+    .input-search {
+        width: 100%;
+    }
+
+    section {
+        display: flex;
+        justify-content: left;
+    }
+
+    .demo-table {
+        width: 100%;
+    }
+    
+    .clase_filtro_btn {
+        width: 100%;
+    }
+}
+
+//tables
+@media only screen and (min-width:767px) and (max-width:991px) {}
+
+//laptops
+@media only screen and (min-width:992px) and (max-width:1023px) {}
+
+//desktop
+@media only screen and (min-width:1024px) {}
