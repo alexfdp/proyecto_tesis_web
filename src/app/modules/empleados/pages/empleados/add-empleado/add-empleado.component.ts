@@ -110,8 +110,8 @@ export class AddEmpleadoDialog {
         this.empleado = this.myForm.value
         this.empleado.fecha_contratacion = this.miDatePipe.transform(this.empleado.fecha_ingres, 'yyyy-MM-dd HH:mm:ss');
         this.empleado.fecha_nacimiento = this.miDatePipe.transform(this.empleado.fecha_nacimient, 'yyyy-MM-dd HH:mm:ss');
-        this.empleado.puesto_id = this.puestos.find(puesto => puesto.descripcion === this.f.puesto.value)!.idpuesto;
-        this.empleado.rol_id = this.empleado.puesto_id
+        this.empleado.cargo_id = this.puestos.find(puesto => puesto.descripcion === this.f.puesto.value)!.idcargo;
+        this.empleado.rol_id = 1
         //this.empleado.contrasena = password
         this.registro(this.empleado)
     }

@@ -4,10 +4,10 @@
             <div fxLayout="row" fxLayoutAlign="space-between center" class="clase_filtro_btn">
 
                 <button type="button" class="btn btn-success" style="margin-bottom: 8px;">Generar roles de pago de
-                    {{mes}}</button>
+                    {{mes_data}}</button>
             </div>
         </div>
-        
+
         <div class="form-floating mb-3 input-search">
             <input type="text" class="form-control" matInput #input placeholder="l">
             <label for="floatingInput">Filtrar por nombre</label>
@@ -15,43 +15,45 @@
 
         <section class="example-container" tabindex="0">
 
-            <table mat-table matSort class="mat-elevation-z8 demo-table">
+            <table mat-table [dataSource]="empleados_roles" matSort class="mat-elevation-z8 demo-table">
 
                 <!-- ID Column -->
                 <ng-container matColumnDef="id">
                     <th mat-header-cell *matHeaderCellDef class="texto"> ID </th>
-                    <td mat-cell *matCellDef="let row" class="texto"> asd </td>
+                    <td mat-cell *matCellDef="let row" class="texto"> {{row.empleado_id}} </td>
                 </ng-container>
 
                 <!-- Name Column -->
                 <ng-container matColumnDef="nombre">
                     <th mat-header-cell *matHeaderCellDef mat-sort-header class="texto"> Nombre </th>
-                    <td mat-cell *matCellDef="let row" class="texto"> as</td>
+                    <td mat-cell *matCellDef="let row" class="texto"> {{row.nombre}} </td>
                 </ng-container>
 
                 <!-- Estado Column -->
-                <ng-container matColumnDef="estadoPago">
+                <!-- <ng-container matColumnDef="estadoPago">
                     <th mat-header-cell *matHeaderCellDef class="texto" style="width: auto;"> Estado Pago </th>
-                    <td mat-cell *matCellDef="let row" class="texto" [ngSwitch]="row.estado"
-                        [ngClass]="row.estado === 1 ? 'activo':'unactivo'">
+                    <td mat-cell *matCellDef="let row" class="texto" [ngSwitch]="row.estado_pago"
+                        [ngClass]="row.estado_pago === 1 ? 'activo':'unactivo'">
                         <span *ngSwitchCase="1">
-                            ACTIVO
+                            CANCELADO
                         </span>
                         <span *ngSwitchCase="0">
-                            INACTIVO
+                            PENDIENTE
                         </span>
                     </td>
-                </ng-container>
+                </ng-container> -->
 
                 <!-- Acciones Column -->
                 <ng-container matColumnDef="imprimir">
-                    <th mat-header-cell *matHeaderCellDef class="texto"> Imprimir </th>
+                    <th mat-header-cell *matHeaderCellDef class="texto">  </th>
                     <td mat-cell *matCellDef="let row" class="texto">
-                        <ng-icon name="bootstrapFileEarmarkPdfFill"></ng-icon>
+                        <ng-icon name="matfPdfColored" *ngIf="empleado===row" (click)="openeditdialog()"> </ng-icon>
                     </td>
                 </ng-container>
 
                 <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr mat-row (click)="empleado=row" [class.demo-row-is-clicked]="empleado===row"
+                    *matRowDef="let row; columns: displayedColumns;"></tr>
                 <!-- <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr> -->
 
                 <!-- No se encontraron resultados para la consulta -->

@@ -11,6 +11,7 @@ import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { TimepickerModule } from 'ngx-bootstrap/timepicker';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgbDatepicker } from '@ng-bootstrap/ng-bootstrap';
+import { matfPdfColored } from "@ng-icons/material-file-icons/colored";
 import { SharedModule } from 'src/app/shared/shared/shared.module';
 
 
@@ -29,7 +30,7 @@ import { SharedModule } from 'src/app/shared/shared/shared.module';
     BsDatepickerModule.forRoot(),
     MatSlideToggleModule,
     RolPagoRoutingModule,
-    NgIconsModule.withIcons({ bootstrapFileEarmarkPdfFill }),
+    NgIconsModule.withIcons({ bootstrapFileEarmarkPdfFill, matfPdfColored }),
   ]
 })
 export class RolPagoModule { }

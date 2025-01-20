@@ -18,7 +18,7 @@ export class EmpleadosService {
   private putEstadoEmpleado = "empleados/estado"
   private getOnlyEmpleado = "empleados/only"
   private getvaluser = "empleados/validuser"
-  private getpuestos = "public/puestos"
+  private getcargos = "public/cargos"
   private getroles = "public/roles"
 
   private usuarios = "usuario"
@@ -39,8 +39,8 @@ export class EmpleadosService {
     return this.http.post<any>(`${environment.apiUrl}/${this.getvaluser}`, { headers, usuario })
   }
 
-  public getPuestos() {
-    return this.http.get<Puesto[]>(`${environment.apiUrl}/${this.getpuestos}`);
+  public getCargos() {
+    return this.http.get<Puesto[]>(`${environment.apiUrl}/${this.getcargos}`);
   }
 
   public getRoles() {

@@ -73,11 +73,11 @@ section {
 }
 
 .activo {
-    background-color: #4AB14D;
+    background-color: #4CAF50;
 }
 
 .unactivo {
-    background-color: red;
+    background-color: #F44336;
 }
 
 .poractive {
@@ -98,6 +98,11 @@ section {
 
 .edit {
     color: #381fd6;
+}
+
+ng-icon{
+    width: 30px;
+    height: 30px;
 }
 
 //dialog

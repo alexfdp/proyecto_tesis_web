@@ -11,10 +11,11 @@ export interface Empleado {
     correo: string
     sueldo: number
     fecha_nacimiento: Date
-    puesto: string
-    puesto_id:number
+    cargo: string
+    cargo_id:number
     fecha_registro: Date
     fecha_contratacion: Date
     usuario: string
     contrasena: string
+    nombre_departamento: string
 }

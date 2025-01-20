@@ -7,7 +7,7 @@ export interface EmpleadoDAO {
     telefono: string
     correo: string
     sueldo: number
-    puesto_id: number
+    cargo_id: number
     rol_id: number
     fecha_ingres: Date
     fecha_nacimient: Date

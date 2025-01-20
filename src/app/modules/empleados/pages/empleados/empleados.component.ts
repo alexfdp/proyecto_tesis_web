@@ -18,7 +18,7 @@ import { EditEmpleadoDialog } from './edit-empleado/edit-empleado.component';
   styleUrls: ['./empleados.component.scss'],
 })
 export class EmpleadosComponent {
-  displayedColumns: string[] = ['id', 'nombre', 'puesto', 'estado', 'estadoU', 'fechareg', 'acciones'];
+  displayedColumns: string[] = ['id', 'nombre', 'cargo', 'departamento', 'estado', 'estadoU', 'fechareg', 'acciones'];
   empleados!: MatTableDataSource<Empleado>;
   empleadoSelect!: Empleado
   @ViewChild(MatPaginator) paginator!: MatPaginator;
@@ -26,7 +26,7 @@ export class EmpleadosComponent {
   public puestos!: Puesto[]
 
   private consultarAllPuestosRoles() {
-    this.empleadosrv.getPuestos().subscribe({
+    this.empleadosrv.getCargos().subscribe({
       next: (data) => {
         this.puestos = data;
       },

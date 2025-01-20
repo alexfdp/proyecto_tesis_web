@@ -1,5 +1,5 @@
 export interface Puesto {
-    idpuesto: number
+    idcargo: number
     descripcion: string
     sueldo: number
 }

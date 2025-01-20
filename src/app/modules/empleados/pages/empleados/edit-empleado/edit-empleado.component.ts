@@ -26,7 +26,7 @@ export class EditEmpleadoDialog {
     empleado!: Empleado
     public puestos!: Puesto[]
     opcionSlect = ""
-    puesto_id = 0
+    cargo_id = 0
     sueldo = 0
 
     constructor(
@@ -39,8 +39,8 @@ export class EditEmpleadoDialog {
         this.empleado = data.empleado;
         this.puestos = data.puestos;
         this.sueldo = this.empleado.sueldo
-        this.opcionSlect = this.puestos.find(puesto => puesto.descripcion === this.empleado.puesto)?.descripcion || '';
-        this.puesto_id = this.puestos.find(puesto => puesto.descripcion === this.empleado.puesto)?.idpuesto || 0;
+        this.opcionSlect = this.puestos.find(puesto => puesto.descripcion === this.empleado.cargo)?.descripcion || '';
+        this.cargo_id = this.puestos.find(puesto => puesto.descripcion === this.empleado.cargo)?.idcargo || 0;
         this.myForm = this.createMyForm();
         this.myForm.controls['nombre'].disable();
         this.myForm.controls['cedula'].disable();
@@ -63,7 +63,7 @@ export class EditEmpleadoDialog {
             correo: [this.empleado.correo, [Validators.required, Validators.maxLength(200), Validators.email]],
             sueldo: [this.sueldo, [Validators.required, Validators.min(0)]],
             puesto: [this.opcionSlect],
-            puesto_id: [this.puesto_id],
+            puesto_id: [this.cargo_id],
             fecha_ingreso: [this.formatofecha(this.empleado.fecha_contratacion)],
             usuario: [this.empleado.usuario],
         });
@@ -79,7 +79,7 @@ export class EditEmpleadoDialog {
         }
         const idempleado = this.empleado.idempleado;
         this.empleado = this.myForm.value;
-        this.empleado.puesto_id = this.puesto_id;
+        this.empleado.cargo_id = this.cargo_id;
         this.empleado.idempleado = idempleado
         this.updateEmployee(this.empleado);
     }
@@ -111,10 +111,10 @@ export class EditEmpleadoDialog {
 
     capturar() {
         this.sueldo = this.puestos.find(puesto => puesto.descripcion === this.f.puesto.value)!.sueldo;
-        this.puesto_id = this.puestos.find(puesto => puesto.descripcion === this.f.puesto.value)!.idpuesto;
+        this.cargo_id = this.puestos.find(puesto => puesto.descripcion === this.f.puesto.value)!.idcargo;
         this.f.sueldo.value = this.sueldo;
         this.myForm.controls['sueldo'].setValue(this.sueldo);
-        this.f.puesto_id.value = this.puesto_id
+        this.f.puesto_id.value = this.cargo_id
     }
 
     formatofecha(fecha: Date) {
