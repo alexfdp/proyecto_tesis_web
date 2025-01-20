@@ -1,4 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
+import { DecimalPipe } from '@angular/common';
 import * as moment from "moment";
 import { RolPagoService } from '../../services/rol-pago.service';
 import { EmpleadoRol } from 'src/app/models/EmpleadoRol';
@@ -13,7 +14,7 @@ import { RolPagoPdfService } from '../../services/rol-pago-pdf.service';
   styleUrls: ['./rol-pagos.component.scss']
 })
 export class RolPagosComponent {
-  displayedColumns: string[] = ['id', 'nombre', 'imprimir'];
+  displayedColumns: string[] = ['id', 'nombre', 'nombre_cargo', 'nombre_departamento', 'imprimir'];
   mes_data = 'noviembre';
   empleados_roles!: MatTableDataSource<EmpleadoRol>;
   empleado !: EmpleadoRol
