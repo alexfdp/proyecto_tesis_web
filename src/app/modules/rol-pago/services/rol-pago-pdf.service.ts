@@ -39,18 +39,18 @@ export class RolPagoPdfService {
         payrollData.deduccionesGenerales.forEach((deduccion) => {
             if (deduccion.descripcion === 'Seguro Social') {
                 yPosition += 10;
-                doc.text(`Aporte IESS:`, 10, yPosition);
+                doc.text(`- Aporte IESS:`, 10, yPosition);
                 doc.text(`${this.formatearNumero(deduccion.valor_deduccion)}`, 160, yPosition, { align: 'right' });
             } else {
                 yPosition += 10;
-                doc.text(`${deduccion.descripcion}:`, 10, yPosition);
+                doc.text(`- ${deduccion.descripcion}:`, 10, yPosition);
                 doc.text(`${this.formatearNumero(deduccion.valor_deduccion)}`, 160, yPosition, { align: 'right' });
             }
         });
         yPosition += 10;
         payrollData.deduccionesEmpleado.forEach((deduccion) => {
             yPosition += 10;
-            doc.text(`${deduccion.descripcion}:`, 10, yPosition);
+            doc.text(`- ${deduccion.descripcion}:`, 10, yPosition);
             doc.text(`${this.formatearNumero(deduccion.valor)}`, 160, yPosition, { align: 'right' });
         });
         yPosition += 10;
